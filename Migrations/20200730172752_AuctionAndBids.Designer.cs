@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectIepAuction.Models.Database;
 
 namespace ProjectIepAuction.Migrations
 {
     [DbContext(typeof(ProjectIepAuctionContext))]
-    partial class ProjectIepAuctionContextModelSnapshot : ModelSnapshot
+    [Migration("20200730172752_AuctionAndBids")]
+    partial class AuctionAndBids
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

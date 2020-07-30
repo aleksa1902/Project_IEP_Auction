@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ProjectIepAuction.Models.Database;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,7 +12,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ProjectIepAuction.Models.Database;
 
 namespace ProjectIepAuction
 {
@@ -30,19 +30,28 @@ namespace ProjectIepAuction
             services.AddDbContext<ProjectIepAuctionContext>(
                 options => options.UseSqlServer(this.Configuration.GetConnectionString("ProjectIepAuctionDB"))
             );
+
             services.AddIdentity<User, IdentityRole>(
                 options => {
                     options.User.RequireUniqueEmail = true;
-                    options.Password.RequireDigit = false;
                     options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireUppercase = false;
-                    options.Password.RequiredLength = 2;
+                    options.Password.RequireDigit = true;
+                    options.Password.RequiredLength = 8;
                 }
- 
+
+
             ).AddEntityFrameworkStores<ProjectIepAuctionContext>();
 
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddAutoMapper(typeof(Startup));
+
+            services.ConfigureApplicationCookie (
+                options => {
+                    options.LoginPath = "/User/LogIn";
+                    options.AccessDeniedPath = "/Error";
+                }
+            );
+
 
             services.AddControllersWithViews();
         }

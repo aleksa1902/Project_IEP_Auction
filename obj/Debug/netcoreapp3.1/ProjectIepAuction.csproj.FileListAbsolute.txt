@@ -376,3 +376,4 @@ E:\Aleksa\ProjekatIEP\ProjectIepAuction\bin\Debug\netcoreapp3.1\zh-Hant\Microsof
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\ProjectIepAuction.MvcApplicationPartsAssemblyInfo.cs
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\User\Register.cshtml.g.cs
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\Shared\User.cshtml.g.cs
+E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\User\Login.cshtml.g.cs
