@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProjectIepAuction.Factories;
 
 namespace ProjectIepAuction
 {
@@ -52,6 +53,7 @@ namespace ProjectIepAuction
                 }
             );
 
+            services.AddScoped<IUserClaimsPrincipalFactory<User>, ClaimFactory>();
 
             services.AddControllersWithViews();
         }
@@ -73,7 +75,8 @@ namespace ProjectIepAuction
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
