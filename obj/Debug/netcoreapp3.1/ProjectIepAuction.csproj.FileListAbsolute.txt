@@ -375,3 +375,4 @@ E:\Aleksa\ProjekatIEP\ProjectIepAuction\bin\Debug\netcoreapp3.1\zh-Hans\Microsof
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\ProjectIepAuction.MvcApplicationPartsAssemblyInfo.cs
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\User\Register.cshtml.g.cs
+E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\Shared\User.cshtml.g.cs
