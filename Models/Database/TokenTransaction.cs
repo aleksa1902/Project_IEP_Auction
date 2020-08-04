@@ -13,8 +13,9 @@ namespace ProjectIepAuction.Models.Database
         [Required]
         public DateTime purchaseDate {get; set;}
 
-        public User user {get; set;}
-
+        //public User user {get; set;}
+        public string userId {get; set;}
+        public int bagId {get; set;}
         public BagToken bag {get; set;}
     }
 
@@ -23,7 +24,12 @@ namespace ProjectIepAuction.Models.Database
         public void Configure(EntityTypeBuilder<TokenTransaction> builder)
         {
             builder.Property(transaction => transaction.IdTra).ValueGeneratedOnAdd();
+            
+            builder.HasOne<BagToken>(item =>item.bag)
+            .WithMany(item =>item.TokenTransactionList)
+            .HasForeignKey(item =>new {item.bagId} );
         }
+        
     }
 
 }
