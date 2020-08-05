@@ -6,12 +6,12 @@ namespace ProjectIepAuction.Models.View
 {
     public class NewPassword{
         [Required]
-        [Display(Name = "Password")]
+        [Display(Name = "Old Password")]
         [DataType(DataType.Password)] //Prilikom unosa nece se prikazivati tekst nego tackice :D
         public string oldPassword{get; set;}
 
         [Required]
-        [Display(Name = "Password")]
+        [Display(Name = "New Password")]
         [DataType(DataType.Password)] //Prilikom unosa nece se prikazivati tekst nego tackice :D
         public string newPassword{get; set;}
 

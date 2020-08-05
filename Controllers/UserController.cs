@@ -174,16 +174,7 @@ namespace ProjectIepAuction.Controllers{
                 return View ( model );
             } 
 
-            if(loggedInUser.UserName != model.username){
-                var resultUserName = await this.userManager.SetUserNameAsync(loggedInUser, model.username);
-
-                if( !resultUserName.Succeeded ){
-                    ModelState.AddModelError ( "", "Username not valid!" );
-                    return View ( model );
-                }
-            }
-
-            if(loggedInUser.UserName != model.username){
+            if(loggedInUser.Email != model.email){
                 var resultMail = await this.userManager.SetEmailAsync(loggedInUser, model.email);
 
                 if( !resultMail.Succeeded ){
@@ -192,11 +183,19 @@ namespace ProjectIepAuction.Controllers{
                 }
             }
 
-            if ( model.returnUrl != null ) {
-                return Redirect ( model.returnUrl );
-            } else {
-                return RedirectToAction ( nameof ( UserController.Profile ), "Home" );
+            if(loggedInUser.firstName != model.firstName){
+                loggedInUser.firstName = model.firstName;
             }
+
+            if(loggedInUser.lastName != model.lastName){
+                loggedInUser.lastName = model.lastName;
+            }
+
+
+            await this.userManager.UpdateAsync(loggedInUser);
+
+            return RedirectToAction("Profile");
+            
         }
 
         public IActionResult NewPassword(){
@@ -220,11 +219,13 @@ namespace ProjectIepAuction.Controllers{
 
             if(!result.Succeeded)
             {
-                foreach(IdentityError error in result.Errors)
-                    ModelState.AddModelError("", error.Description);
+                //foreach(IdentityError error in result.Errors)
+                    ModelState.AddModelError("", "Matori unesi sva polja pravilno!"/*error.Description*/);
                 
                 return View(model);
             }
+
+            await this.userManager.UpdateAsync(loggedInUser);
 
             await signInManager.RefreshSignInAsync(loggedInUser);
 
