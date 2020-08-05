@@ -193,6 +193,7 @@ namespace ProjectIepAuction.Controllers{
 
 
             await this.userManager.UpdateAsync(loggedInUser);
+            await this.signInManager.RefreshSignInAsync(loggedInUser);
 
             return RedirectToAction("Profile");
             
