@@ -10,7 +10,7 @@ function buyTokens ( ) {
         type: "POST", //koji je tip zahteva POST
         url: "/Payment/Payment", //Sta se pozviva, /ControllerName/ControllerMethodName
         data: { //Podaci koji se salju metodi kontrolera i to ka JSON objekat
-            "bagName": $("input[name='bag']:checked").val(), //to je onaj parametar sto on trazi bagName
+            "bagName": $("input[name='tokenbag']:checked").val(), //to je onaj parametar sto on trazi bagName
             "__RequestVerificationToken" : verificationToken // i za kraj taj token za verifikaciju
         },
         success: function ( response ) {
@@ -29,7 +29,7 @@ $( document ).ready(function() {
             return actions.order.create ( {
                 purchase_units: [{
                     amount: {
-                        value: $("input[name='bag']:checked").val()
+                        value: $("input[name='tokenbag']:checked").val()
                     }
                 }]
             } )

@@ -4,31 +4,24 @@
     ViewData["Title"] = "Payment";
 }
 
-<div class="container">
-<div class="row justify-content-center">
-        <div class="col-xl-4">
-            <button id="tokens" disabled> 
-                <img src="~/images/token.png" width="75"/>
-                @Model
-            </button>
-        </div>
-       
-    
-</div>
 
-<h1>Token bags</h1>
-<div class="row  mt-6">
-    <input type="radio" id="Sliver" name="tokenbag" value="4.99">
-    <label for="male">Sliver package (5 tokens) 4.99$</label><br>
-    <input type="radio" id="Gold" name="tokenbag" value="9.99">
-    <label for="female">Gold package (10 tokens) 9.99$</label><br>
-    <input type="radio" id="Platinum" name="tokenbag" value="17.99">
-    <label for="other">Platinum package (20 tokens) 17.99$</label>
+<div class="row justify-content-center mt-4">
+    <div class="col-xl-4">
+        <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Token bags</h1>
+        <hr>
+        <input type="radio" id="Sliver" name="tokenbag" value="4.99">
+        <label for="male">Sliver package (5 tokens) 4.99$</label><br /><hr>
+        <input type="radio" id="Gold" name="tokenbag" value="9.99">
+        <label for="female">Gold package (10 tokens) 9.99$</label><br /><hr>
+        <input type="radio" id="Platinum" name="tokenbag" value="17.99">
+        <label for="other">Platinum package (20 tokens) 17.99$</label><hr>
+    </div>
 </div>
 
 <div class="row justify-content-center mt-4">
     <div class="col-xl-4">
         <script src="https://www.paypal.com/sdk/js?client-id=AdJHP2haWArYEw-Od-vOMVpEqpcnpHFUIyncrMzTAuMtZrhT40p_DwVwg20wV4U8-FwhRPTbGlISWIv7"></script>
+        <div id="paypal"></div>
     </div>
 
 </div>

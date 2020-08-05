@@ -141,7 +141,95 @@ namespace ProjectIepAuction.Controllers{
       
         }
 
+        public async Task<IActionResult> Profile(){
+            User loggedInUser = await this.userManager.GetUserAsync(base.User);
+            return View(loggedInUser);
+        }
         
+        public async Task<IActionResult> ChangeProfile(){
+            User loggedInUser = await this.userManager.GetUserAsync(base.User);
+            ProfileModel model = new ProfileModel()
+            {
+                firstName = loggedInUser.firstName,
+                username = loggedInUser.UserName,
+                lastName = loggedInUser.lastName,
+                email = loggedInUser.Email 
+            };
+            return View(model);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangeProfile ( ProfileModel model ) {
+            if ( !ModelState.IsValid ) {
+                return View ( model );
+            }
+
+            User loggedInUser = await this.userManager.GetUserAsync(base.User);
+                       
+            var result = await this.userManager.CheckPasswordAsync(loggedInUser, model.password);
+
+            if ( result == false ) {
+                ModelState.AddModelError ( "", "Password not valid!" );
+                return View ( model );
+            } 
+
+            if(loggedInUser.UserName != model.username){
+                var resultUserName = await this.userManager.SetUserNameAsync(loggedInUser, model.username);
+
+                if( !resultUserName.Succeeded ){
+                    ModelState.AddModelError ( "", "Username not valid!" );
+                    return View ( model );
+                }
+            }
+
+            if(loggedInUser.UserName != model.username){
+                var resultMail = await this.userManager.SetEmailAsync(loggedInUser, model.email);
+
+                if( !resultMail.Succeeded ){
+                    ModelState.AddModelError ( "", "Mail not valid!" );
+                    return View ( model );
+                }
+            }
+
+            if ( model.returnUrl != null ) {
+                return Redirect ( model.returnUrl );
+            } else {
+                return RedirectToAction ( nameof ( UserController.Profile ), "Home" );
+            }
+        }
+
+        public IActionResult NewPassword(){
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> NewPassword ( NewPassword model ) {
+            if ( !ModelState.IsValid ) {
+                return View ( model );
+            }
+
+            User loggedInUser = await this.userManager.GetUserAsync(base.User);
+
+            if(loggedInUser == null){
+                return RedirectToAction ( nameof ( UserController.Profile ), "Home" );
+            }
+
+           var result = await userManager.ChangePasswordAsync(loggedInUser, model.oldPassword, model.newPassword);
+
+            if(!result.Succeeded)
+            {
+                foreach(IdentityError error in result.Errors)
+                    ModelState.AddModelError("", error.Description);
+                
+                return View(model);
+            }
+
+            await signInManager.RefreshSignInAsync(loggedInUser);
+
+            return View("ChangePasswordConfirmation");
+        }
 
     }
 }

@@ -1,0 +1,55 @@
+@model ProjectIepAuction.Models.View.ProfileModel
+
+@{
+    ViewData["Title"] = "Change profile";
+}
+
+<div class="container">
+  <div class="row">
+  <div class="col-2"></div>
+  <div class="col-7"><br><br><br>
+    <form asp-controller="User" asp-action="ChangeUser">
+      <table class="table table-hover table table-bordered">
+        <tbody>
+            <thead>
+                <tr class="table-success">
+                    <th colspan="2" style="text-align: center;">Change your profile</th>
+                </tr>
+            </thead>
+            <tr class="table-info">
+                <td scope="col">Username</td>
+                <td scope="col"><input asp-for="username" class="form-control" />
+                <span asp-validation-for="username" class="text-danger"></span></td>           
+            </tr>
+            <tr class="table-info">
+                <td>First name</td>
+                <td><input asp-for="firstName" class="form-control" />
+                <span asp-validation-for="firstName" class="text-danger"></span></td>
+            </tr>
+            <tr class="table-info">
+                <td>Last name</td>
+                <td><input asp-for="lastName" class="form-control" />
+                <span asp-validation-for="lastName" class="text-danger"></span></td>
+            </tr class="table-info">
+            <tr class="table-info">
+                <td>Email</td>
+                <td><input asp-for="email" class="form-control" />
+                <span asp-validation-for="email" class="text-danger"></span></td>
+            </tr>
+            <tr class="table-info">
+                <td>Password</td>
+                <td><input asp-for="password" class="form-control" />
+                <span asp-validation-for="password" class="text-danger"></span></td>
+            </tr>
+            <tr class="table-info">
+                <td colspan="2"><input type="submit" value="Update profile" class="btn btn-success" /></td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+  </div>
+  <div class="col-3">
+    
+  </div>
+</div>
+</div>

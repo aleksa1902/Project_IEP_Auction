@@ -24,7 +24,7 @@ namespace ProjectIepAuction.Controllers
         }
 
 
-         public async Task<IActionResult> Tokens()
+         public async Task<IActionResult> Payment()
          {
              User loggedInUser = await this.userManager.GetUserAsync(base.User);
              int tokens = loggedInUser.tokens;
@@ -33,7 +33,7 @@ namespace ProjectIepAuction.Controllers
 
          [HttpPost]
          [ValidateAntiForgeryToken]
-         public async Task<IActionResult> Tokens(string bagName)
+         public async Task<IActionResult> Payment(string bagName)
          {
              User loggedInUser = await this.userManager.GetUserAsync(base.User);
              int idBag = 0;

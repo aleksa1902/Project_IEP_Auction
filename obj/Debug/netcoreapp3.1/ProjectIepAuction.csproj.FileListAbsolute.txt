@@ -390,3 +390,7 @@ E:\Aleksa\ProjekatIEP\ProjectIepAuction\bin\Debug\netcoreapp3.1\runtimes\win-x86
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\Payment\Payment.cshtml.g.cs
+E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\User\Profile.cshtml.g.cs
+E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\User\ChangeProfile.cshtml.g.cs
+E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\User\NewPassword.cshtml.g.cs
+E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\User\ChangePasswordConfirmation.cshtml.g.cs

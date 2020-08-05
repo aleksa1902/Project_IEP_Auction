@@ -27,7 +27,6 @@ namespace ProjectIepAuction.Factories {
             claimsIdentity.AddClaim (
                 new Claim ( "fullName", user.firstName + " " + user.lastName )
             );
-
             /* claimsIdentity.AddClaim (
                 new Claim ( "tokens", Convert.ToString(user.tokens ))
             );*/
