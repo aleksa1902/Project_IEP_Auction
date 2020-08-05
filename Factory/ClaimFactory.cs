@@ -27,9 +27,10 @@ namespace ProjectIepAuction.Factories {
             claimsIdentity.AddClaim (
                 new Claim ( "fullName", user.firstName + " " + user.lastName )
             );
-            /* claimsIdentity.AddClaim (
+            
+            claimsIdentity.AddClaim (
                 new Claim ( "tokens", Convert.ToString(user.tokens ))
-            );*/
+            );
 
             IList<string> roles = await this.userManager.GetRolesAsync ( user );
 

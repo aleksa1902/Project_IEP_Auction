@@ -16,11 +16,14 @@ namespace ProjectIepAuction.Controllers
     {
         private UserManager<User> userManager;
         private ProjectIepAuctionContext context;
+        private SignInManager<User> signInManager;
 
-        public PaymentController(ProjectIepAuctionContext context, UserManager<User> userManager)
+
+        public PaymentController(ProjectIepAuctionContext context, UserManager<User> userManager,  SignInManager<User> signInManager)
         {
             this.context = context;
             this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
 
@@ -72,6 +75,8 @@ namespace ProjectIepAuction.Controllers
 
              loggedInUser.tokens += tokenAmount;
              await this.userManager.UpdateAsync(loggedInUser);
+
+             await signInManager.RefreshSignInAsync(loggedInUser);
 
              return Json(true);
          }    
