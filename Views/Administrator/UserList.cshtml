@@ -1,0 +1,70 @@
+@model ProjectIepAuction.Models.View.UserListModel
+@{
+    ViewData["Title"] = "User list";
+}
+
+<h1>User list</h1><hr>
+
+@if(Model.userList.Any()){
+    <a asp-controller="User" asp-action="Register" class = "btn btn-primary mb-3" style="width:auto">Add new user</a>
+
+    foreach(var user in Model.userList){
+        @if(user.UserName == Model.loggedInUser.UserName){
+            <div id="@user.UserName">
+                <div class = "card text-white bg-primary mb-3">
+                    <div class = "card-header">
+                        User Id : @user.Id
+                    </div>
+                    <div class = "card-body">
+                        <h5 class = "card-title">@user.UserName (@user.firstName, @user.lastName, @user.Email)</h5>
+                    </div>
+                    <div class = "card-footer">
+                       
+                   </div>
+                </div>
+            </div>
+        }else if(user.state != "Banned"){
+            <div id="@user.UserName">
+                <div class = "card mb-3">
+                    <div class = "card-header">
+                        User Id : @user.Id
+                    </div>
+                    <div class = "card-body">
+                        <h5 class = "card-title">@user.UserName (@user.firstName, @user.lastName, @user.Email)</h5>
+                    </div>
+                    <div class = "card-footer">
+                       <button type="button" class="btn btn-danger" onclick="banUser('@user.UserName')">Ban</button>
+                   </div>
+                </div>
+            </div>
+        }else if(user.state == "Banned"){
+            <div id="@user.UserName">
+                <div class = "card text-white bg-danger mb-3">
+                    <div class = "card-header">
+                        User Id : @user.Id
+                    </div>
+                    <div class = "card-body">
+                        <h5 class = "card-title">@user.UserName (@user.firstName, @user.lastName, @user.Email)</h5>
+                    </div>
+                    <div class = "card-footer">
+                        <button type="button" class="btn btn-success" onclick="unbanUser('@user.UserName')">Unban</button>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}else{
+    <div class = "card">
+        <div class = "card-header">
+            No users created yet
+        </div>
+        <div class = "card-body">
+            <h5 class = "card-title">
+                Use the button below to create a user
+            </h5>
+            <a class="btn btn-primary" style="width:auto" asp-asp-controller="User" asp-action="Register">
+                Add new user
+            </a>
+        </div>
+    </div>
+}

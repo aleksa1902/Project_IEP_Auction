@@ -1,0 +1,14 @@
+@model ProjectIepAuction.Models.Database.User
+
+<div class = "car text-white bg-danger mb-3">
+    <div class = "card-header">
+        User Id : @Model.Id
+    </div>
+    <div class = "card-body">
+        <h5 class = "card-title">@Model.UserName (@Model.firstName, @Model.lastName, @Model.Email)</h5>
+    </div>
+    <div class = "card-footer">
+        <button type="button" class="btn btn-success" onclick="unbanUser('@Model.UserName')">Unban</button>
+    </div>
+</div>
+

@@ -394,3 +394,7 @@ E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\User
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\User\ChangeProfile.cshtml.g.cs
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\User\NewPassword.cshtml.g.cs
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\User\ChangePasswordConfirmation.cshtml.g.cs
+E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\Administrator\AuctionList.cshtml.g.cs
+E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\Administrator\UserList.cshtml.g.cs
+E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\Administrator\BanUser.cshtml.g.cs
+E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\Administrator\UnbanUser.cshtml.g.cs

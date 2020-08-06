@@ -46,3 +46,46 @@ $( document ).ready(function() {
     } ).render ( "#paypal" )
     
 });
+
+
+function banUser(username)
+{
+    var verificationToken = $("input[name='__RequestVerificationToken']").val ( )
+    
+    $.ajax ({  
+        type: "POST", 
+        url: "/Administrator/Ban", 
+        data: { 
+            "username": username,
+            "__RequestVerificationToken" : verificationToken 
+        },
+        dataType: "text",
+        success: function ( response ) {
+            $("#"+username).html(response) 
+        },
+        error: function ( response ) {
+            alert ( response ) 
+        }
+    })
+}
+
+function unbanUser(username)
+{
+    var verificationToken = $("input[name='__RequestVerificationToken']").val ( )
+    
+    $.ajax ({  
+        type: "POST", 
+        url: "/Administrator/Unban", 
+        data: { 
+            "username": username,
+            "__RequestVerificationToken" : verificationToken 
+        },
+        dataType: "text",
+        success: function ( response ) {
+            $("#"+username).html(response) 
+        },
+        error: function ( response ) {
+            alert ( response ) 
+        }
+    })
+}

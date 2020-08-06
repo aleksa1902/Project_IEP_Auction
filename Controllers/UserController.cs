@@ -117,6 +117,16 @@ namespace ProjectIepAuction.Controllers{
                 return View ( model );
             }
 
+            User user = await this.userManager.FindByNameAsync(model.username);
+
+            var checkPassword = await this.signInManager.CheckPasswordSignInAsync(user, model.password, false);
+
+            if(checkPassword.Succeeded && user.state == "Banned"){
+                ModelState.AddModelError("", "You are banned !");
+                return View(model);
+            }
+
+
             var result = await this.signInManager.PasswordSignInAsync ( model.username, model.password, false, false );
 
             if ( !result.Succeeded ) {

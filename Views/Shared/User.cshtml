@@ -36,11 +36,23 @@
 <ul class = "navbar-nav">
 
     @if(signInManager.IsSignedIn(User)){
+        @if(role == "Administrator"){
+            <li class="nav-item dropdown">
+                <button class="dropdown-toggle text-dark btn btn-light btn-outline-info" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Admin options
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <button class="dropdown-item" type="button">Auction list</button>
+                    <a class="dropdown-item" asp-controller="Administrator" asp-action="UserList">User list</a>
+                </div>
+            </li>
+        }
+        <div>&nbsp;</div>
         <li class="nav-item">
             <a class="nav-link text-dark btn btn-light btn-outline-info" asp-controller="Payment" asp-action="Payment">Payment</a>
         </li><div>&nbsp;</div>
         <li class="nav-item">
-            <a class="nav-link text-dark btn btn-light btn-outline-info" asp-controller="User" asp-action="Profile">[@role] @fullName (Tokens @tokens)</a>
+            <a class="nav-link text-dark btn btn-light btn-outline-info" asp-controller="User" asp-action="Profile">@fullName (Tokens @tokens)</a>
         </li><div>&nbsp;</div>
         <li class="nav-item">
             <form class="form-inline" asp-controller="User" asp-action="LogOut">

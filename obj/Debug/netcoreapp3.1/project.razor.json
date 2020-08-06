@@ -20521,6 +20521,11 @@
   "RootNamespace": "ProjectIepAuction",
   "Documents": [
     {
+      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\Administrator\\BanUser.cshtml",
+      "TargetPath": "Views\\Administrator\\BanUser.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
       "FileKind": "mvc"
@@ -20551,8 +20556,23 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\Administrator\\AuctionList.cshtml",
+      "TargetPath": "Views\\Administrator\\AuctionList.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\User\\Register.cshtml",
       "TargetPath": "Views\\User\\Register.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\Administrator\\UnbanUser.cshtml",
+      "TargetPath": "Views\\Administrator\\UnbanUser.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\Administrator\\UserList.cshtml",
+      "TargetPath": "Views\\Administrator\\UserList.cshtml",
       "FileKind": "mvc"
     },
     {
