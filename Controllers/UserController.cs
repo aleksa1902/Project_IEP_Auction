@@ -5,6 +5,7 @@ using ProjectIepAuction.Models.View;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace ProjectIepAuction.Controllers{
 
@@ -63,14 +64,7 @@ namespace ProjectIepAuction.Controllers{
             return RedirectToAction(nameof(HomeController.Index), "Home");
 
             
-        }
-
-       
-      
-
-
-       
-      
+        } 
 
         public IActionResult isEmailUnique(string email) 
         {
@@ -243,5 +237,18 @@ namespace ProjectIepAuction.Controllers{
             return View("ChangePasswordConfirmation");
         }
 
+        public IActionResult CreateAuction(){
+            DateTime today = new DateTime();
+            today = DateTime.Now;
+
+            CreateAuctionModel model = new CreateAuctionModel()
+            {
+                openDate = today 
+            };
+
+            return View(model);
+        }
+
     }
 }
+

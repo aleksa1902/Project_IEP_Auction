@@ -1,45 +1,39 @@
 @model ProjectIepAuction.Models.View.UserListModel
 
 @{
-    ViewData["Title"] = "User list";
+    ViewData["Title"] = "Auction list";
 }
 
 <h1>Auction List</h1>
 
 @if(Model.userList.Any()){
-    <a asp-controller="User" asp-action="Register" class = "btn btn-primary mb-3" style="width:auto">Add new user</a>
+    <a asp-controller="User" asp-action="Register" class = "btn btn-primary mb-3" style="width:auto">Add new auction</a>
 
-    foreach(var user in Model.userList){
-        @if(user.state != "Banned"){
+    foreach(var auction in Model.auctionList){
+        @if(auction.state == "DRAFT"){
             <div class = "card mb-3">
                 <div class = "card-header">
-                    User Id : @user.Id
+                    User Id : @auction.Id;
                 </div>
                 <div class = "card-body">
-                    <h5 class = "card-title">@user.UserName (@user.firstName, @user.lastName, @user.Email)</h5>
+                    <h5 class = "card-title">@auction.name</h5>
+                    <br>
+                    @auction.description; (Create date : @auction.createDate, Start date : @auction.openDate)<br>
+                    Start price : @auction.startPrice;
+                    <br>
+                    <img src='@auction.image'>
                 </div>
                 <div class = "card-footer">
                     <a href="#" class = "btn btn-danger">Ban</a>
                 </div>
             </div>
-        }else if(user.state == "Banned"){
-            <div class = "car text-white bg-danger mb-3">
-                <div class = "card-header">
-                    User Id : @user.Id
-                </div>
-                <div class = "card-body">
-                    <h5 class = "card-title">@user.UserName (@user.firstName, @user.lastName, @user.Email)</h5>
-                </div>
-                <div class = "card-footer">
-                    <a href="#" class = "btn btn-success">Unban</a>
-                </div>
-            </div>
         }
     }
-}else{
+}
+else{
     <div class = "card">
         <div class = "card-header">
-            No users created yet
+            No auctions created yet
         </div>
         <div class = "card-body">
             <h5 class = "card-title">
@@ -49,5 +43,5 @@
                 Add new user
             </a>
         </div>
-    </div>
+    </div>     
 }

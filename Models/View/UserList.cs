@@ -30,6 +30,7 @@ namespace ProjectIepAuction.Models.View
         public string returnUrl { get; set; }
 
         public List<User> userList;
+        public List<Auction> auctionList;
         public User loggedInUser;
 
     }

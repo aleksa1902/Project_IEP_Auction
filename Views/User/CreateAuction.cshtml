@@ -1,0 +1,45 @@
+@model ProjectIepAuction.Models.View.CreateAuctionModel
+@{
+    ViewData["Title"] = "Create auction";
+}
+
+<h1>Create auction</h1><hr>
+
+<div class="row">
+    <div class="col-xl-4"></div>
+    <div class="col-xl-4">
+        <form asp-controller="User" asp-action="CreateAuction">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="name" class="control-label"></label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="description" class="control-label"></label>
+                <textarea class="form-control" asp-for="description" rows="3"></textarea>
+                <span asp-validation-for="description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="startPrice" class="control-label"></label>
+                <input asp-for="startPrice" class="form-control" />
+                <span asp-validation-for="startPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="openDate" class="control-label"> 
+                    @Html.TextBoxFor(model => model.openDate, new { @type="date", @class = "form-control datepicker",  @Value = Model.openDate.ToString("yyyy-MM-dd") } )
+                    @Html.ValidationMessageFor(model => model.openDate, "", new { @class = "text-danger" })
+                </label>
+                <span asp-validation-for="openDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="image" class="control-label"></label>
+                <input type="file" asp-for="image" class="form-control" />
+                <span asp-validation-for="image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add auction" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

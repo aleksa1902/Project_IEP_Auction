@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity;
+@using ProjectIepAuction.Models.Database;
+
+@inject SignInManager<User> signInManager;
+    
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -31,9 +36,11 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark btn btn-light btn-outline-info" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>&nbsp;
+                        @if(signInManager.IsSignedIn(User)){
                         <li class="nav-item">
-                            <a class="nav-link text-dark btn btn-light btn-outline-info" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark btn btn-light btn-outline-info" asp-area="" asp-controller="User" asp-action="CreateAuction">CreateAuction</a>
                         </li>
+                        }
                     </ul>
                 </div>
             </div>

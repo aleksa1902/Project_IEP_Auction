@@ -89,14 +89,11 @@ namespace ProjectIepAuction.Controllers{
 
 
         public IActionResult AuctionList(){
-            var users = userManager.Users;
-
             UserListModel model = new UserListModel(); 
             
-            model.userList = new List<User>();
-
-            foreach(var user in users){
-                model.userList.Add(user);
+            model.auctionList = new List<Auction>();
+            foreach(var auction in context.Auctions){
+                model.auctionList.Add(auction);
             }
 
             return View(model);
