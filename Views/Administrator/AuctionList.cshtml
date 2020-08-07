@@ -6,11 +6,12 @@
 
 <h1>Auction List</h1>
 
-@if(Model.userList.Any()){
+@if(Model.auctionList.Any()){
     <a asp-controller="User" asp-action="Register" class = "btn btn-primary mb-3" style="width:auto">Add new auction</a>
 
     foreach(var auction in Model.auctionList){
         @if(auction.state == "DRAFT"){
+            string base64 = Convert.ToBase64String(auction.image);
             <div class = "card mb-3">
                 <div class = "card-header">
                     User Id : @auction.Id;
@@ -21,10 +22,11 @@
                     @auction.description; (Create date : @auction.createDate, Start date : @auction.openDate)<br>
                     Start price : @auction.startPrice;
                     <br>
-                    <img src='@auction.image'>
+                    <img src="data:image/png;base64, @base64" />
                 </div>
                 <div class = "card-footer">
-                    <a href="#" class = "btn btn-danger">Ban</a>
+                    <a href="#" class = "btn btn-success">Accept</a>
+                    <a href="#" class = "btn btn-danger">Decline</a>
                 </div>
             </div>
         }

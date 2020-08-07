@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.IO;
 
 namespace ProjectIepAuction.Controllers{
 
@@ -238,17 +239,48 @@ namespace ProjectIepAuction.Controllers{
         }
 
         public IActionResult CreateAuction(){
-            DateTime today = new DateTime();
-            today = DateTime.Now;
 
             CreateAuctionModel model = new CreateAuctionModel()
             {
-                openDate = today 
+                openDate = DateTime.UtcNow
             };
 
             return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateAuction ( CreateAuctionModel model ) {
+            if ( !ModelState.IsValid ) {
+                return View ( model );
+            }
+
+            User loggedInUser = await this.userManager.GetUserAsync(base.User);
+
+            using ( BinaryReader reader = new BinaryReader ( model.image.OpenReadStream ( ) ) ) {
+                Auction auction = new Auction ( ) {
+                    name = model.name,
+                    description = model.description,
+                    startPrice = Convert.ToInt32(model.startPrice),
+                    currentPrice = Convert.ToInt32(model.startPrice),
+                    createDate = model.createDate,
+                    openDate = model.openDate,
+                    closeDate = model.closeDate,
+                    state = "DRAFT",
+                    owner = loggedInUser,
+                    winner = null,
+                    image = reader.ReadBytes ( Convert.ToInt32 ( reader.BaseStream.Length ) )
+            };
+
+            await this.context.Auctions.AddAsync ( auction);
+
+            await this.context.SaveChangesAsync ( );
+
+            return View("Home");
+        }
+        
+        }
+        
     }
 }
 

@@ -2,8 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using ProjectIepAuction.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Web;
-//using System.Web.HttpPostedFileWrapper;
+using Microsoft.AspNetCore.Http;
 
 namespace ProjectIepAuction.Models.View
 {
@@ -17,8 +16,8 @@ namespace ProjectIepAuction.Models.View
         public string description{get; set;}
 
         [Required]
-        [Display(Name = "Image")]
-        public char image{get; set;}
+        [Display ( Name = "File")]
+        public IFormFile image { get; set; }
 
         [Required]
         [Display(Name = "Start price")]
@@ -27,13 +26,17 @@ namespace ProjectIepAuction.Models.View
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
-        public DateTime openDate
-        {
-            get { return openDate; }
-            set { openDate = value; }
-        }
+        public DateTime createDate{get; set;}
 
-        //public HttpPostedFileBase image{get;set;}
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        public DateTime openDate{get; set;}
+
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        public DateTime closeDate{get; set;}
 
     }
 }
