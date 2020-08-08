@@ -6,21 +6,31 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ProjectIepAuction.Models;
+using ProjectIepAuction.Models.Database;
+using ProjectIepAuction.Models.View;
 
 namespace ProjectIepAuction.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private ProjectIepAuctionContext context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ProjectIepAuctionContext context, ILogger<HomeController> logger)
         {
+            this.context = context;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            IndexModel model = new IndexModel();
+            model.auctionList = new List<Auction>();
+            foreach(var auction in context.Auctions){
+                if(auction.state == "OPEN")
+                    model.auctionList.Add(auction);
+            }
+            return View(model);
         }
 
         public IActionResult Privacy()

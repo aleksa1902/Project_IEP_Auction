@@ -1,8 +1,25 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model ProjectIepAuction.Models.View.IndexModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@{
+  ViewData["Title"] = "Home Page";
+}
+<div class="card-columns">
+@foreach (var auction in Model.auctionList)
+{
+string base64 = Convert.ToBase64String(auction.image);
+
+
+  <div class="card">
+    <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
+    <div class="card-body">
+      <h5 class="card-title">@auction.name</h5>
+      <p class="card-text">@auction.description</p>
+      <p class="card-text">Price: @auction.currentPrice</p>
+    </div>
+    <div class="card-footer">
+      <button type="button" class="btn btn-success">Bid</button>
+    </div>
+  </div>
+
+}
 </div>

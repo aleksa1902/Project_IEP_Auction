@@ -89,3 +89,24 @@ function unbanUser(username)
         }
     })
 }
+
+function acceptAuction(id)
+{
+    var verificationToken = $("input[name='__RequestVerificationToken']").val ( )
+    
+    $.ajax ({  
+        type: "POST", 
+        url: "/Administrator/AcceptAuction", 
+        data: { 
+            "id": id,
+            "__RequestVerificationToken" : verificationToken 
+        },
+        dataType: "text",
+        success: function ( response ) {
+            location.reload();
+        },
+        error: function ( response ) {
+            location.reload(); 
+        }
+    })
+}

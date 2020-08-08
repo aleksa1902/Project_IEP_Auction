@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProjectIepAuction.Controllers{
     
@@ -97,6 +98,28 @@ namespace ProjectIepAuction.Controllers{
             }
 
             return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AcceptAuction ( int? id ) {
+
+            User loggedInUser = await this.userManager.GetUserAsync(base.User);
+            
+            Auction auction = await this.context.Auctions.FirstOrDefaultAsync(s => s.Id == id);
+            //User user = await this.userManager.FindByNameAsync(username);
+
+
+            if(auction != null){
+                auction.state = "OPEN";
+            }
+
+            await this.context.SaveChangesAsync();
+
+            //await this.signInManager.RefreshSignInAsync(loggedInUser); 
+
+            return View();
+            
         }
 
     }
