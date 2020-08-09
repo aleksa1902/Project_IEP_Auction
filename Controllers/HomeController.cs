@@ -41,7 +41,18 @@ namespace ProjectIepAuction.Controllers
 
             model.auction = this.context.Auctions.Include(a => a.owner)
             .FirstOrDefault(s => s.Id == id);
-            
+
+            return View(model);
+        }
+
+        public ViewResult BidList(int id){
+            IndexModel model = new IndexModel();
+
+            model.auction = this.context.Auctions.Include(a => a.owner)
+            .FirstOrDefault(s => s.Id == id);
+
+            model.bids = this.context.Bids.Where(a => a.auctionId == model.auction.Id).OrderByDescending(b => b.price);
+
             return View(model);
         }
     }

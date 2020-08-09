@@ -404,3 +404,4 @@ E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\User
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\Home\GetInfoAuction.cshtml.g.cs
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\User\EditAuctionList.cshtml.g.cs
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\User\EditAuction.cshtml.g.cs
+E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\Home\BidList.cshtml.g.cs

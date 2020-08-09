@@ -1,0 +1,38 @@
+@model ProjectIepAuction.Models.View.IndexModel
+
+@{
+    Layout = "_Layout";
+}
+
+<table class = "table table-bordered table-dark">
+  <tr>
+        <td>
+          User
+        </td>
+        <td>
+          Date
+        </td>
+        <td>
+          Price
+        </td>
+      </tr>
+  
+  @{
+    int i = 10;
+    foreach (var bid in @Model.bids){
+      if(i == 0) break;
+      <tr>
+        <td>
+          @bid.user.UserName
+        </td>
+        <td>
+          @bid.bidDate
+        </td>
+        <td>
+          @bid.price
+        </td>
+      </tr>
+      i--;
+  }
+}
+</table>

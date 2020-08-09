@@ -6,13 +6,38 @@
 
 @{
 string base64 = Convert.ToBase64String(@Model.auction.image);
-<div class="card mb-3">
+
+if(@Model.auction.winner != null){
+  <div class="card mb-3 bg-success">
   <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
   <div class="card-body">
-    <h5 class="card-title">@Model.auction.name</h5>
-    <p class="card-text">@Model.auction.description <br><h3>(Current price : @Model.auction.currentPrice )</h3></p>
-    <p class="card-text"><small class="text-muted">@Model.auction.owner.UserName</small></p>
+    <h5 class="card-title">Auction name : @Model.auction.name</h5>
+    <p class="card-text">Description : @Model.auction.description <br>
+    Closed auction : @Model.auction.closeDate<br>
+    Auction owner : @Model.auction.owner<br>
+    Auction winner : @Model.auction.winner</p>
+  </div>
+  <div class="card-footer">
+    Price : @Model.auction.currentPrice<hr>
+    <a href="/Home/BidList/@Model.auction.Id" type="button" class="btn btn-warning">Bid list</a>
   </div>
 </div>
-
+}else{
+  <div class="card mb-3 bg-info">
+  <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
+  <div class="card-body">
+    <h5 class="card-title">Auction name : @Model.auction.name</h5>
+    <p class="card-text">
+    Description : @Model.auction.description <br>
+    Open auction : @Model.auction.openDate<br>
+    Close auction : @Model.auction.closeDate<br>
+    Auction owner : @Model.auction.owner<br>
+  </div>
+  <div class="card-footer">
+    Price : @Model.auction.currentPrice<hr>
+    <button type="button" class="btn btn-success">Bid</button>
+    <a href="/Home/BidList/@Model.auction.Id" type="button" class="btn btn-warning">Bid list</a>
+  </div>
+</div>
+}
 }
