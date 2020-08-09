@@ -11,7 +11,7 @@ string base64 = Convert.ToBase64String(@Model.auction.image);
   <div class="card-body">
     <h5 class="card-title">@Model.auction.name</h5>
     <p class="card-text">@Model.auction.description <br><h3>(Current price : @Model.auction.currentPrice )</h3></p>
-    <p class="card-text"><small class="text-muted">@Model.userName</small></p>
+    <p class="card-text"><small class="text-muted">@Model.auction.owner.UserName</small></p>
   </div>
 </div>
 

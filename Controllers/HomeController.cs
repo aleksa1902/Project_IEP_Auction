@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ProjectIepAuction.Models;
 using ProjectIepAuction.Models.Database;
@@ -34,26 +35,12 @@ namespace ProjectIepAuction.Controllers
             return View(model);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
 
         public ViewResult GetInfoAuction(int id){
             IndexModel model = new IndexModel();
 
-            foreach(var auction in context.Auctions){
-                if(auction.Id == id) {
-                    model.auction = auction;
-                    break;
-                }
-            }
+            model.auction = this.context.Auctions.Include(a => a.owner)
+            .FirstOrDefault(s => s.Id == id);
             
             return View(model);
         }

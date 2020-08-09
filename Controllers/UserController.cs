@@ -271,14 +271,14 @@ namespace ProjectIepAuction.Controllers{
                     owner = loggedInUser,
                     winner = null,
                     image = reader.ReadBytes ( Convert.ToInt32 ( reader.BaseStream.Length ) )
-            };
-
+                };
+            
             await this.context.Auctions.AddAsync ( auction);
 
             await this.context.SaveChangesAsync ( );
 
             return View("Home");
-        }
+            }
         
         }
 
@@ -310,7 +310,7 @@ namespace ProjectIepAuction.Controllers{
             return View(model);
         }
 
-        public async Task<IActionResult> EditAuctionListAsync(){
+        public async Task<IActionResult> EditAuctionList(){
             User loggedInUser = await this.userManager.GetUserAsync(base.User);
             
             UserListModel model = new UserListModel();
@@ -322,6 +322,72 @@ namespace ProjectIepAuction.Controllers{
             }
 
             return View(model);
+        }
+
+        public async Task<IActionResult> EditAuction(int id){
+            User loggedInUser = await this.userManager.GetUserAsync(base.User);
+
+            Auction auction = this.context.Auctions.FirstOrDefault(s => s.Id == id);
+
+            if(auction != null && auction.owner == loggedInUser){
+                EditAuctionModel model = new EditAuctionModel()
+                {
+                    name = auction.name,
+                    description = auction.description,
+                    startPrice = Convert.ToString(auction.startPrice),
+                    openDate = auction.openDate,
+                    closeDate = auction.closeDate,
+                    thisAuction = auction
+                };
+
+                return View(model);
+            }
+
+            return View();
+            
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditAuction ( EditAuctionModel model ) {
+            if ( !ModelState.IsValid ) {
+                return View ( model );
+            }
+
+            Auction auction = this.context.Auctions.FirstOrDefault(s => s.Id == model.thisAuction.Id);
+
+            if(auction.name != model.name){
+                auction.name = model.name;
+            }
+
+            if(auction.description != model.description){
+                auction.description = model.description;
+            }
+
+            if(auction.startPrice != Convert.ToInt32(model.startPrice)){
+                auction.startPrice = Convert.ToInt32(model.startPrice);
+                auction.currentPrice = Convert.ToInt32(model.startPrice);
+            }
+
+            if(auction.openDate != model.openDate){
+                auction.openDate = model.openDate;
+            }
+
+            if(auction.closeDate != model.closeDate){
+                auction.closeDate = model.closeDate;
+            }
+
+            using ( BinaryReader reader = new BinaryReader ( model.image.OpenReadStream ( ) ) ) {
+                if(reader.ReadBytes ( Convert.ToInt32 ( reader.BaseStream.Length ) ) != null){
+                    auction.image = reader.ReadBytes ( Convert.ToInt32 ( reader.BaseStream.Length ) );
+                }
+            };
+            
+            this.context.Auctions.Update (auction);
+
+            await this.context.SaveChangesAsync ( );
+
+            return View("EditAuctionList");
         }
         
     }
