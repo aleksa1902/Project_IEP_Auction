@@ -16,16 +16,19 @@
                 <div class = "card">
                     <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
                     <div class = "card-header">
-                        Auction Id : @auction.Id;
+                        Auction Id : @auction.Id; DRAFT
                     </div>
                     <div class = "card-body">
                         <h5 class = "card-title">@auction.name</h5>
                         <br>
-                        @auction.description; (Create date : @auction.createDate, Start date : @auction.openDate)<br>
+                        Create date : @auction.createDate<br>
+                        Start date : @auction.openDate<br>
+                        Close date : @auction.closeDate<br>
                         Start price : @auction.startPrice;
                     </div>
                     <div class = "card-footer">
                         <a href="/User/EditAuction/@auction.Id" type="button" class="btn btn-success">Edit</a>
+                        <a href="/Home/GetInfoAuction/@auction.Id" type="button" class="btn btn-info">Info</a>
                     </div>
                 </div>
             </div>
@@ -35,12 +38,14 @@
                 <div class = "card bg-success">
                     <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
                     <div class = "card-header">
-                        Auction Id : @auction.Id;
+                        Auction Id : @auction.Id; OPEN
                     </div>
                     <div class = "card-body">
                         <h5 class = "card-title">@auction.name</h5>
                         <br>
-                        @auction.description; (Create date : @auction.createDate, Start date : @auction.openDate)<br>
+                        Create date : @auction.createDate<br>
+                        Start date : @auction.openDate<br>
+                        Close date : @auction.closeDate<br>
                         Start price : @auction.startPrice;
                     </div>
                     <div class = "card-footer">
@@ -54,12 +59,35 @@
                 <div class = "card bg-danger">
                     <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
                     <div class = "card-header">
-                        Auction Id : @auction.Id;
+                        Auction Id : @auction.Id; DELETED
                     </div>
                     <div class = "card-body">
                         <h5 class = "card-title">@auction.name</h5>
                         <br>
-                        @auction.description; (Create date : @auction.createDate, Start date : @auction.openDate)<br>
+                        Create date : @auction.createDate<br>
+                        Start date : @auction.openDate<br>
+                        Close date : @auction.closeDate<br>
+                        Start price : @auction.startPrice;
+                    </div>
+                    <div class = "card-footer">
+                        <a href="/Home/GetInfoAuction/@auction.Id" type="button" class="btn btn-info">Info</a>
+                    </div>
+                </div>
+            </div>
+        }else if(auction.state == "READY"){
+            string base64 = Convert.ToBase64String(auction.image);
+            <div id="@auction.Id">
+                <div class = "card bg-info">
+                    <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
+                    <div class = "card-header">
+                        Auction Id : @auction.Id; READY
+                    </div>
+                    <div class = "card-body">
+                        <h5 class = "card-title">@auction.name</h5>
+                        <br>
+                        Create date : @auction.createDate<br>
+                        Start date : @auction.openDate<br>
+                        Close date : @auction.closeDate<br>
                         Start price : @auction.startPrice;
                     </div>
                     <div class = "card-footer">
@@ -73,12 +101,14 @@
                 <div class = "card bg-secondary">
                     <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
                     <div class = "card-header">
-                        Auction Id : @auction.Id;
+                        Auction Id : @auction.Id; EXPIRED/SOLD
                     </div>
                     <div class = "card-body">
                         <h5 class = "card-title">@auction.name</h5>
                         <br>
-                        @auction.description; (Create date : @auction.createDate, Start date : @auction.openDate)<br>
+                        Create date : @auction.createDate<br>
+                        Start date : @auction.openDate<br>
+                        Close date : @auction.closeDate<br>
                         Start price : @auction.startPrice;
                     </div>
                     <div class = "card-footer">

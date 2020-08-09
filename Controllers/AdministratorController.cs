@@ -58,9 +58,19 @@ namespace ProjectIepAuction.Controllers{
 
             if(user != null){
                 user.state = "Banned";
+
+                foreach(var auction in context.Auctions){
+                    if(auction.owner == user){
+                        auction.state = "DELETED";
+
+                        this.context.Auctions.Update (auction);
+                    }
+                }
             }
 
             await this.userManager.UpdateAsync(user);
+
+            await this.context.SaveChangesAsync ( );
 
             //await this.signInManager.RefreshSignInAsync(loggedInUser);
 
@@ -111,7 +121,7 @@ namespace ProjectIepAuction.Controllers{
 
 
             if(auction != null){
-                auction.state = "OPEN";
+                auction.state = "READY";
             }
 
             await this.context.SaveChangesAsync();

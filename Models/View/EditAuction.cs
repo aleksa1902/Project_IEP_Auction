@@ -15,9 +15,8 @@ namespace ProjectIepAuction.Models.View
        
         [Display(Name = "Description")]
         public string description{get; set;}
-
        
-        [Display ( Name = "File")]
+        [Display ( Name = "image")]
         public IFormFile image { get; set; }
 
       
@@ -32,7 +31,7 @@ namespace ProjectIepAuction.Models.View
         [DataType(DataType.Date)]
         public DateTime closeDate{get; set;}
 
-        public Auction thisAuction;
+        public int auctionId;
 
     }
 }

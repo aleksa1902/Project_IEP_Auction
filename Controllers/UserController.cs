@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProjectIepAuction.Controllers{
 
@@ -258,13 +259,28 @@ namespace ProjectIepAuction.Controllers{
 
             User loggedInUser = await this.userManager.GetUserAsync(base.User);
 
+            if(model.openDate < DateTime.Today){
+                ModelState.AddModelError ( "", "Open date not valid!" );
+                    return View ( model );
+            }
+
+            if(model.openDate >= model.closeDate){
+                ModelState.AddModelError ( "", "Open date and Close date not valid!" );
+                    return View ( model );
+            }
+            
+            if(!Microsoft.VisualBasic.Information.IsNumeric(model.startPrice)){
+                ModelState.AddModelError ( "", "Start price not valid!" );
+                    return View ( model );
+            }
+
             using ( BinaryReader reader = new BinaryReader ( model.image.OpenReadStream ( ) ) ) {
                 Auction auction = new Auction ( ) {
                     name = model.name,
                     description = model.description,
                     startPrice = Convert.ToInt32(model.startPrice),
                     currentPrice = Convert.ToInt32(model.startPrice),
-                    createDate = model.createDate,
+                    createDate = DateTime.Now,
                     openDate = model.openDate,
                     closeDate = model.closeDate,
                     state = "DRAFT",
@@ -277,7 +293,7 @@ namespace ProjectIepAuction.Controllers{
 
             await this.context.SaveChangesAsync ( );
 
-            return View("Home");
+            return RedirectToAction ( nameof ( HomeController.Index ), "Home" );
             }
         
         }
@@ -337,8 +353,9 @@ namespace ProjectIepAuction.Controllers{
                     startPrice = Convert.ToString(auction.startPrice),
                     openDate = auction.openDate,
                     closeDate = auction.closeDate,
-                    thisAuction = auction
                 };
+
+                model.auctionId = auction.Id;
 
                 return View(model);
             }
@@ -350,11 +367,8 @@ namespace ProjectIepAuction.Controllers{
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditAuction ( EditAuctionModel model ) {
-            if ( !ModelState.IsValid ) {
-                return View ( model );
-            }
 
-            Auction auction = this.context.Auctions.FirstOrDefault(s => s.Id == model.thisAuction.Id);
+            Auction auction = this.context.Auctions.FirstOrDefault(s => s.Id == model.auctionId);
 
             if(auction.name != model.name){
                 auction.name = model.name;
@@ -376,14 +390,11 @@ namespace ProjectIepAuction.Controllers{
             if(auction.closeDate != model.closeDate){
                 auction.closeDate = model.closeDate;
             }
-
+            if(model.image != null){
             using ( BinaryReader reader = new BinaryReader ( model.image.OpenReadStream ( ) ) ) {
-                if(reader.ReadBytes ( Convert.ToInt32 ( reader.BaseStream.Length ) ) != null){
-                    auction.image = reader.ReadBytes ( Convert.ToInt32 ( reader.BaseStream.Length ) );
-                }
+                auction.image = reader.ReadBytes ( Convert.ToInt32 ( reader.BaseStream.Length ) );
             };
-            
-            this.context.Auctions.Update (auction);
+            }
 
             await this.context.SaveChangesAsync ( );
 
