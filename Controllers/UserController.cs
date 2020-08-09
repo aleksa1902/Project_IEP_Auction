@@ -353,9 +353,11 @@ namespace ProjectIepAuction.Controllers{
                     startPrice = Convert.ToString(auction.startPrice),
                     openDate = auction.openDate,
                     closeDate = auction.closeDate,
+                    auctionId = auction.Id
                 };
 
-                model.auctionId = auction.Id;
+                
+                
 
                 return View(model);
             }
@@ -368,6 +370,8 @@ namespace ProjectIepAuction.Controllers{
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditAuction ( EditAuctionModel model ) {
 
+            //User loggedInUser = await this.userManager.GetUserAsync(base.User);
+
             Auction auction = this.context.Auctions.FirstOrDefault(s => s.Id == model.auctionId);
 
             if(auction.name != model.name){
@@ -379,11 +383,30 @@ namespace ProjectIepAuction.Controllers{
             }
 
             if(auction.startPrice != Convert.ToInt32(model.startPrice)){
+                if(!Microsoft.VisualBasic.Information.IsNumeric(model.startPrice)){
+                    ModelState.AddModelError ( "", "Start price not valid!" );
+                    return View ( model );
+                }
                 auction.startPrice = Convert.ToInt32(model.startPrice);
                 auction.currentPrice = Convert.ToInt32(model.startPrice);
             }
 
             if(auction.openDate != model.openDate){
+                if(model.openDate < DateTime.Today){
+                    ModelState.AddModelError ( "", "Open date not valid!" );
+                    return View ( model );
+                }
+                if(auction.closeDate != model.closeDate){
+                    if(model.openDate >= model.closeDate){
+                        ModelState.AddModelError ( "", "Open date and close date not valid!" );
+                        return View ( model );
+                    }
+                }else{
+                    if(model.openDate >= auction.closeDate){
+                        ModelState.AddModelError ( "", "New open date and auction close date not valid!" );
+                        return View ( model );
+                    }
+                }
                 auction.openDate = model.openDate;
             }
 
@@ -398,7 +421,9 @@ namespace ProjectIepAuction.Controllers{
 
             await this.context.SaveChangesAsync ( );
 
-            return View("EditAuctionList");
+            //await signInManager.RefreshSignInAsync(loggedInUser);
+
+            return RedirectToAction(nameof(UserController.EditAuctionList), "User");
         }
         
     }

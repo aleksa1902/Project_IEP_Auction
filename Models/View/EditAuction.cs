@@ -31,7 +31,7 @@ namespace ProjectIepAuction.Models.View
         [DataType(DataType.Date)]
         public DateTime closeDate{get; set;}
 
-        public int auctionId;
+        public int auctionId{get; set;}
 
     }
 }

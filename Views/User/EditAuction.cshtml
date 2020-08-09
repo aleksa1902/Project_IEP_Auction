@@ -9,6 +9,7 @@
     <div class="col-xl-4"></div>
     <div class="col-xl-4">
         <form asp-controller="User" asp-action="EditAuction" enctype="multipart/form-data">
+            <input type="hidden" asp-for="auctionId"/>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="name" class="control-label"></label>
