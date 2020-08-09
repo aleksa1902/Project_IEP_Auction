@@ -43,5 +43,13 @@ namespace ProjectIepAuction.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public ViewResult GetInfoAuction(int id){
+            IndexModel model = new IndexModel();
+            
+            model.auction = this.context.Auctions.FirstOrDefault(s => s.Id == id);
+
+            return View(model);
+        }
     }
 }

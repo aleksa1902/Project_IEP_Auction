@@ -13,5 +13,6 @@ namespace ProjectIepAuction.Models.View
         public List<Auction> auctionList;
         public User loggedInUser;
 
+        public Auction auction;
     }
 }
