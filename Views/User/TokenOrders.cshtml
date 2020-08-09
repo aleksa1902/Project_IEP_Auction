@@ -1,0 +1,34 @@
+@model ProjectIepAuction.Models.View.TokenOrders
+@{
+    ViewData["Title"] = "Token transactions";
+}
+
+<h1>Token transactions</h1><hr>
+
+@if(Model.tokenTransList.Any()){
+
+    <table class="table table-striped table-dark table-bordered">
+        <tr>
+            <th>Purchase date</th>
+            <th>Bag name</th>
+            <th>Bag tokens</th>
+        </tr>
+    @foreach(var tokenTrans in Model.tokenTransList){
+        <tr>
+            <td>@tokenTrans.purchaseDate</td>
+            @if(@tokenTrans.bagId == 1){
+                <td>Sliver</td>
+                <td>5</td>
+            }else if(@tokenTrans.bagId == 2){
+                <td>Gold</td>
+                <td>10</td>
+            }else{
+                <td>Plantinum</td>
+                <td>20</td>
+            }
+        </tr>
+    }
+    </table>
+}else{
+    <h1>You dont have transactions.</h1>
+}

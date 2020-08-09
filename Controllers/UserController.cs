@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
+using System.Collections.Generic;
 
 namespace ProjectIepAuction.Controllers{
 
@@ -279,6 +280,34 @@ namespace ProjectIepAuction.Controllers{
             return View("Home");
         }
         
+        }
+
+        public async Task<IActionResult> TokenOrders(){       
+            User loggedInUser = await this.userManager.GetUserAsync(base.User);
+
+            TokenOrders model = new TokenOrders();
+            model.tokenTransList = new List<TokenTransaction>();
+
+            foreach(var tokenTran in context.TokenTransactions){
+                if(tokenTran.userId == loggedInUser.Id) model.tokenTransList.Add(tokenTran);
+            }
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> AuctionWinnerList(){       
+            User loggedInUser = await this.userManager.GetUserAsync(base.User);
+
+            AuctionWinnerList model = new AuctionWinnerList();
+            model.auctionList = new List<Auction>();
+
+            foreach(var auction in context.Auctions){
+                if(auction.winner != null){
+                    User user = auction.winner;
+                    if(user.Id == loggedInUser.Id) model.auctionList.Add(auction);
+                } 
+            }
+            return View(model);
         }
         
     }

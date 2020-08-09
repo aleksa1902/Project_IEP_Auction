@@ -1,0 +1,34 @@
+@model ProjectIepAuction.Models.View.AuctionWinnerList
+
+@{
+    ViewData["Title"] = "Auction list";
+}
+
+@if(Model.auctionList.Any()){
+    
+    <h1>Auction List</h1>
+    
+    <a asp-controller="User" asp-action="Register" class = "btn btn-primary mb-3" style="width:auto">Add new auction</a>
+    <div class="card-columns">
+    @foreach(var auction in Model.auctionList){       
+        string base64 = Convert.ToBase64String(auction.image);
+        <div id="@auction.Id">
+            <div class = "card">
+                <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
+                <div class = "card-header">
+                    User Id : @auction.Id;
+                </div>
+                <div class = "card-body">
+                    <h5 class = "card-title">@auction.name</h5>
+                    <br>
+                    @auction.description; (Create date : @auction.createDate, Start date : @auction.openDate)<br>
+                    Start price : @auction.startPrice;
+                </div>
+            </div>
+        </div>
+    }
+    </div>
+}
+else{
+    <h1>You havent won any auctions.</h1>
+}

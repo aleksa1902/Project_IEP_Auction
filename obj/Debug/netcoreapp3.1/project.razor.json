@@ -20576,6 +20576,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\User\\AuctionWinnerList.cshtml",
+      "TargetPath": "Views\\User\\AuctionWinnerList.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\Administrator\\UserList.cshtml",
       "TargetPath": "Views\\Administrator\\UserList.cshtml",
       "FileKind": "mvc"
@@ -20593,6 +20598,11 @@
     {
       "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\User\\LogIn.cshtml",
       "TargetPath": "Views\\User\\LogIn.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\User\\TokenOrders.cshtml",
+      "TargetPath": "Views\\User\\TokenOrders.cshtml",
       "FileKind": "mvc"
     },
     {

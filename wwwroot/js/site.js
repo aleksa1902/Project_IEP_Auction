@@ -110,3 +110,45 @@ function acceptAuction(id)
         }
     })
 }
+
+function declineAuction(id)
+{
+    var verificationToken = $("input[name='__RequestVerificationToken']").val ( )
+    
+    $.ajax ({  
+        type: "POST", 
+        url: "/Administrator/DeclineAuction", 
+        data: { 
+            "id": id,
+            "__RequestVerificationToken" : verificationToken 
+        },
+        dataType: "text",
+        success: function ( response ) {
+            location.reload();
+        },
+        error: function ( response ) {
+            location.reload(); 
+        }
+    })
+}
+
+function infoAuction(id)
+{
+    var verificationToken = $("input[name='__RequestVerificationToken']").val ( )
+    
+    $.ajax ({  
+        type: "POST", 
+        url: "/Administrator/infoAuction", 
+        data: { 
+            "id": id,
+            "__RequestVerificationToken" : verificationToken 
+        },
+        dataType: "text",
+        success: function ( response ) {
+            location.reload(); 
+        },
+        error: function ( response ) {
+            location.reload(); 
+        }
+    })
+}

@@ -122,5 +122,27 @@ namespace ProjectIepAuction.Controllers{
             
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeclineAuction ( int? id ) {
+
+            User loggedInUser = await this.userManager.GetUserAsync(base.User);
+            
+            Auction auction = await this.context.Auctions.FirstOrDefaultAsync(s => s.Id == id);
+            //User user = await this.userManager.FindByNameAsync(username);
+
+
+            if(auction != null){
+                auction.state = "DELETED";
+            }
+
+            await this.context.SaveChangesAsync();
+
+            //await this.signInManager.RefreshSignInAsync(loggedInUser); 
+
+            return View();
+            
+        }
+
     }
 }
