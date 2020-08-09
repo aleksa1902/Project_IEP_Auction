@@ -20626,6 +20626,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\User\\EditAuctionList.cshtml",
+      "TargetPath": "Views\\User\\EditAuctionList.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
       "FileKind": "mvc"

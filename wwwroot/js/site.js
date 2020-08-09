@@ -132,20 +132,20 @@ function declineAuction(id)
     })
 }
 
-function infoAuction(id)
+function editAuction(id)
 {
     var verificationToken = $("input[name='__RequestVerificationToken']").val ( )
     
     $.ajax ({  
         type: "POST", 
-        url: "/Administrator/infoAuction", 
+        url: "/User/EditAuction", 
         data: { 
             "id": id,
             "__RequestVerificationToken" : verificationToken 
         },
         dataType: "text",
         success: function ( response ) {
-            location.reload(); 
+            location.reload();
         },
         error: function ( response ) {
             location.reload(); 

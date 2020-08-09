@@ -309,6 +309,20 @@ namespace ProjectIepAuction.Controllers{
             }
             return View(model);
         }
+
+        public async Task<IActionResult> EditAuctionListAsync(){
+            User loggedInUser = await this.userManager.GetUserAsync(base.User);
+            
+            UserListModel model = new UserListModel();
+
+            model.auctionList = new List<Auction>();
+
+            foreach(var auction in context.Auctions){
+                if(auction.owner == loggedInUser) model.auctionList.Add(auction);
+            }
+
+            return View(model);
+        }
         
     }
 }

@@ -7,7 +7,7 @@
 <h1>Auction List</h1>
 
 @if(Model.auctionList.Any()){
-    <a asp-controller="User" asp-action="Register" class = "btn btn-primary mb-3" style="width:auto">Add new auction</a>
+    <a asp-controller="User" asp-action="CreateAuction" class = "btn btn-primary mb-3" style="width:auto">Add new auction</a>
     <div class="card-columns">
     @foreach(var auction in Model.auctionList){
         @if(auction.state == "DRAFT"){
@@ -16,7 +16,7 @@
                 <div class = "card">
                     <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
                     <div class = "card-header">
-                        User Id : @auction.Id;
+                        Auction Id : @auction.Id;
                     </div>
                     <div class = "card-body">
                         <h5 class = "card-title">@auction.name</h5>
@@ -41,10 +41,10 @@ else{
         </div>
         <div class = "card-body">
             <h5 class = "card-title">
-                Use the button below to create a user
+                Use the button below to create a auction
             </h5>
-            <a class="btn btn-primary" style="width:auto" asp-asp-controller="User" asp-action="Register">
-                Add new user
+            <a class="btn btn-primary" style="width:auto" asp-asp-controller="User" asp-action="CreateAuction">
+                Add new auction
             </a>
         </div>
     </div>     

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ProjectIepAuction.Models;
@@ -46,9 +47,14 @@ namespace ProjectIepAuction.Controllers
 
         public ViewResult GetInfoAuction(int id){
             IndexModel model = new IndexModel();
-            
-            model.auction = this.context.Auctions.FirstOrDefault(s => s.Id == id);
 
+            foreach(var auction in context.Auctions){
+                if(auction.Id == id) {
+                    model.auction = auction;
+                    break;
+                }
+            }
+            
             return View(model);
         }
     }
