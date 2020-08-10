@@ -314,16 +314,14 @@ namespace ProjectIepAuction.Controllers{
             return View(model);
         }
 
-        public async Task<IActionResult> EditAuctionList(){
+        public async Task<IActionResult> EditAuctionList(int? page){
             User loggedInUser = await this.userManager.GetUserAsync(base.User);
             
             UserListModel model = new UserListModel();
 
-            model.auctionList = new List<Auction>();
+            IList<Auction> list = await this.context.Auctions.Include(t => t.owner).Where(t => t.owner == loggedInUser).OrderByDescending(t => t.createDate).ToListAsync();
 
-            foreach(var auction in context.Auctions){
-                if(auction.owner == loggedInUser) model.auctionList.Add(auction);
-            }
+            model.auctionList = list.ToPagedList(page ?? 1,10);
 
             return View(model);
         }

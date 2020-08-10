@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectIepAuction.Models.Database;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
+using X.PagedList;
 
 namespace ProjectIepAuction.Models.View
 {
@@ -28,10 +29,10 @@ namespace ProjectIepAuction.Models.View
 
         [HiddenInput]
         public string returnUrl { get; set; }
-
-        public List<User> userList;
-        public List<Auction> auctionList;
         public User loggedInUser;
+
+        public IPagedList<User> userList {get; set;}
+        public IPagedList<Auction> auctionList {get; set;}
 
     }
 }

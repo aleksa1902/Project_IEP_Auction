@@ -1,3 +1,5 @@
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
 @model ProjectIepAuction.Models.View.UserListModel
 
 @{
@@ -49,3 +51,22 @@ else{
         </div>
     </div>     
 }
+<div class="row justify-content-center">
+@Html.PagedListPager(Model.auctionList, page => Url.Action("AuctionList", new { page = page }),
+    new X.PagedList.Web.Common.PagedListRenderOptionsBase
+    {
+        DisplayPageCountAndCurrentLocation = true,
+        ContainerDivClasses = new[] { "navigation" },
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" }
+    })
+
+    @section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('ul.pagination > li.disabled > a').addClass('page-link');
+        });
+    </script>
+}
+
+</div>

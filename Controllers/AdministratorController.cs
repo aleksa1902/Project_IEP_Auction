@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 
 namespace ProjectIepAuction.Controllers{
     
@@ -30,7 +31,7 @@ namespace ProjectIepAuction.Controllers{
             this.signInManager = signInManager;
         }
 
-        public async Task<IActionResult> UserListAsync(){
+        public async Task<IActionResult> UserListAsync(int? page){
             var users = userManager.Users; // uzme sve usere
 
             UserListModel model = new UserListModel(); //pravi modela gde se nalazi lista userList
@@ -38,12 +39,10 @@ namespace ProjectIepAuction.Controllers{
             User loggedInUser = await this.userManager.GetUserAsync(base.User);
 
             model.loggedInUser = loggedInUser;
-            
-            model.userList = new List<User>(); //easy
 
-            foreach(var user in users){
-                model.userList.Add(user); //dodaje svakog usera u listu
-            }
+            IList<User> list = await this.userManager.Users.OrderBy(s => s.state).ToListAsync();
+            
+            model.userList = list.ToPagedList(page ?? 1,10);
 
             return View(model);
         }
@@ -99,13 +98,12 @@ namespace ProjectIepAuction.Controllers{
         }
 
 
-        public IActionResult AuctionList(){
-            UserListModel model = new UserListModel(); 
+        public async Task<IActionResult> AuctionList(int? page){
+            IList<Auction> list = await this.context.Auctions.Include(t => t.owner).Where(t => t.state == "DRAFT").OrderByDescending(t => t.createDate).ToListAsync();
             
-            model.auctionList = new List<Auction>();
-            foreach(var auction in context.Auctions){
-                model.auctionList.Add(auction);
-            }
+            UserListModel model = new UserListModel(){
+                auctionList = list.ToPagedList(page ?? 1,10)
+            };
 
             return View(model);
         }
