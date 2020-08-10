@@ -1,33 +1,50 @@
-﻿@model ProjectIepAuction.Models.View.IndexModel
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@model ProjectIepAuction.Models.View.IndexModel; 
 
 @{
   ViewData["Title"] = "Home Page";
+  int num = 0;
 }
-<div class="card-columns">
-@foreach (var auction in Model.auctionList)
-{
-string base64 = Convert.ToBase64String(auction.image);
+
+    <div class="card-columns">
+        @foreach (var auction in @Model.auctionsList)
+        {
+           string base64 = Convert.ToBase64String(auction.image);
 
 
-  <div class="card">
-    <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
-    <div class="card-body">
-      <h5 class="card-title">Name : @auction.name</h5>
-      <p class="card-text">
-        Current price: @auction.currentPrice<br>
-        Last bid user : <hr>
-        Time :
-      </p>
-    </div>
-    <div class="card-footer">
-      <button type="button" class="btn btn-success">Bid</button>
-      <a href="/Home/GetInfoAuction/@auction.Id" type="button" class="btn btn-info">Info</a>
-    </div>
-  </div>
-
-}
+        <div class="card">
+          <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
+          <div class="card-body">
+            <h5 class="card-title">Name : @auction.name</h5>
+            <p class="card-text">
+              Current price: @auction.currentPrice<br>
+              Last bid user : <hr>
+              Time :
+            </p>
+          </div>
+          <div class="card-footer">
+            <button type="button" class="btn btn-success">Bid</button>
+            <a href="/Home/GetInfoAuction/@auction.Id" type="button" class="btn btn-info">Info</a>
+          </div>
+        </div>
+        }
 </div>
 
-<cs-pager cs-paging-pagenumber = "4" cs-paging-totalitems="4" cs-paging-pagesize="1" cs-pagenumber-param="pagenumber" asp-controller="Home" asp-action="Index">
+<div class="row justify-content-center">
+@Html.PagedListPager(Model.auctionsList, page => Url.Action("Index", new { page = page }),
+    new X.PagedList.Web.Common.PagedListRenderOptionsBase
+    {
+        DisplayPageCountAndCurrentLocation = true,
+        ContainerDivClasses = new[] { "navigation" },
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" }
+    })
 
-</cs-pager>
+    @section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('ul.pagination > li.disabled > a').addClass('page-link');
+        });
+    </script>
+}

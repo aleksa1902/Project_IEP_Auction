@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using ProjectIepAuction.Models;
 using ProjectIepAuction.Models.Database;
 using ProjectIepAuction.Models.View;
+using X.PagedList;
 
 namespace ProjectIepAuction.Controllers
 {
@@ -24,15 +25,18 @@ namespace ProjectIepAuction.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int? page)
         {
-            IndexModel model = new IndexModel();
-            model.auctionList = new List<Auction>();
-            foreach(var auction in context.Auctions){
-                if(auction.state == "OPEN")
-                    model.auctionList.Add(auction);
-            }
+
+             IList<Auction> list = await this.context.Auctions.Include(t => t.owner).Where(t => t.state == "OPEN").OrderByDescending(t => t.openDate).ToListAsync();
+
+             IndexModel model = new IndexModel()
+             {
+                 auctionsList = list.ToPagedList(page ?? 1,12)
+             };
+
             return View(model);
+           
         }
 
 

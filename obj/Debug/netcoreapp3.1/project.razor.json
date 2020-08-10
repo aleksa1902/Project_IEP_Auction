@@ -20611,11 +20611,6 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\User\\TokenOrders.cshtml",
-      "TargetPath": "Views\\User\\TokenOrders.cshtml",
-      "FileKind": "mvc"
-    },
-    {
       "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "FileKind": "mvc"

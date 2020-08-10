@@ -1,7 +1,10 @@
-@model int 
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@model ProjectIepAuction.Models.View.TokenOrders; 
 
 @{
     ViewData["Title"] = "Payment";
+    int num = 0;
 }
 
 
@@ -24,6 +27,62 @@
         <div id="paypal"></div>
     </div>
 
+    <h1>Transaction history</h1><hr>
+
 </div>
+
+    <table class="table">
+    <thead>
+        <tr>
+         <th >#</th>
+         <th >Date</th>
+         <th >Bag name</th>
+         <th >Amount</th>
+         <th >Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @Model.transactions)
+        {
+            
+            num++;
+            <tr>
+                <th scope="row">@num</th>
+
+                <td>@item.purchaseDate</td>
+
+                <td class="@item.bag.bagName">
+                    @item.bag.bagName
+                </td>
+
+                <td style="font-weight: bold;">@item.bag.amount</td>
+
+                <td style="font-weight: bold;">@item.bag.price$</td>
+            </tr>
+
+           
+        }
+    </tbody>
+    </table>
+
+</div>
+
+<div class="row justify-content-center">
+@Html.PagedListPager(Model.transactions, page => Url.Action("Payment", new { page = page }),
+    new X.PagedList.Web.Common.PagedListRenderOptionsBase
+    {
+        DisplayPageCountAndCurrentLocation = true,
+        ContainerDivClasses = new[] { "navigation" },
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" }
+    })
+
+    @section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('ul.pagination > li.disabled > a').addClass('page-link');
+        });
+    </script>
+}
 
 </div>

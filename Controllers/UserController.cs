@@ -9,6 +9,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 
 namespace ProjectIepAuction.Controllers{
 
@@ -64,7 +65,7 @@ namespace ProjectIepAuction.Controllers{
                 return View(model);
             }
 
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return Redirect ("/Home/Index");
 
             
         } 
@@ -134,7 +135,7 @@ namespace ProjectIepAuction.Controllers{
             if ( model.returnUrl != null ) {
                 return Redirect ( model.returnUrl );
             } else {
-                return RedirectToAction ( nameof ( HomeController.Index ), "Home" );
+                return Redirect ("/Home/Index");
             }
         }
 
@@ -144,7 +145,7 @@ namespace ProjectIepAuction.Controllers{
         public async Task<IActionResult> LogOut()
         {
             await this.signInManager.SignOutAsync();
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return Redirect ("/Home/Index");
       
         }
 
@@ -296,19 +297,6 @@ namespace ProjectIepAuction.Controllers{
             return RedirectToAction ( nameof ( HomeController.Index ), "Home" );
             }
         
-        }
-
-        public async Task<IActionResult> TokenOrders(){       
-            User loggedInUser = await this.userManager.GetUserAsync(base.User);
-
-            TokenOrders model = new TokenOrders();
-            model.tokenTransList = new List<TokenTransaction>();
-
-            foreach(var tokenTran in context.TokenTransactions){
-                if(tokenTran.userId == loggedInUser.Id) model.tokenTransList.Add(tokenTran);
-            }
-
-            return View(model);
         }
 
         public async Task<IActionResult> AuctionWinnerList(){       

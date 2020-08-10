@@ -121,7 +121,7 @@ namespace ProjectIepAuction.Controllers{
 
 
             if(auction != null){
-                auction.state = "READY";
+                auction.state = "OPEN";
             }
 
             await this.context.SaveChangesAsync();

@@ -399,9 +399,15 @@ E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\Admi
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\Administrator\BanUser.cshtml.g.cs
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\Administrator\UnbanUser.cshtml.g.cs
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\User\CreateAuction.cshtml.g.cs
-E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\User\TokenOrders.cshtml.g.cs
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\User\AuctionWinnerList.cshtml.g.cs
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\Home\GetInfoAuction.cshtml.g.cs
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\User\EditAuctionList.cshtml.g.cs
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\User\EditAuction.cshtml.g.cs
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\obj\Debug\netcoreapp3.1\Razor\Views\Home\BidList.cshtml.g.cs
+E:\Aleksa\ProjekatIEP\ProjectIepAuction\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+E:\Aleksa\ProjekatIEP\ProjectIepAuction\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+E:\Aleksa\ProjekatIEP\ProjectIepAuction\bin\Debug\netcoreapp3.1\Quartz.AspNetCore.dll
+E:\Aleksa\ProjekatIEP\ProjectIepAuction\bin\Debug\netcoreapp3.1\Quartz.Extensions.DependencyInjection.dll
+E:\Aleksa\ProjekatIEP\ProjectIepAuction\bin\Debug\netcoreapp3.1\X.PagedList.dll
+E:\Aleksa\ProjekatIEP\ProjectIepAuction\bin\Debug\netcoreapp3.1\X.PagedList.Mvc.Core.dll
+E:\Aleksa\ProjekatIEP\ProjectIepAuction\bin\Debug\netcoreapp3.1\X.PagedList.Web.Common.dll
