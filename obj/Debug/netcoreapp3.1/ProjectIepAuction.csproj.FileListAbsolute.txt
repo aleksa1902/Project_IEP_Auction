@@ -411,3 +411,4 @@ E:\Aleksa\ProjekatIEP\ProjectIepAuction\bin\Debug\netcoreapp3.1\Quartz.Extension
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\bin\Debug\netcoreapp3.1\X.PagedList.dll
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\bin\Debug\netcoreapp3.1\X.PagedList.Mvc.Core.dll
 E:\Aleksa\ProjekatIEP\ProjectIepAuction\bin\Debug\netcoreapp3.1\X.PagedList.Web.Common.dll
+E:\Aleksa\ProjekatIEP\ProjectIepAuction\bin\Debug\netcoreapp3.1\libman.json

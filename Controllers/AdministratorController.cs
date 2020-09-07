@@ -2,6 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ProjectIepAuction.Models.Database;
 using ProjectIepAuction.Models.View;
+using ProjectIepAuction.Quartz;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,8 @@ using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
+using Quartz;
+using System;
 
 namespace ProjectIepAuction.Controllers{
     
@@ -20,15 +23,19 @@ namespace ProjectIepAuction.Controllers{
         private RoleManager<IdentityRole> roleManager;
         private IMapper mapper;
         private SignInManager<User> signInManager;
+        private ISchedulerFactory schedulerFactory;
+        private IScheduler scheduler;
+        private bool schedulerStarted = false;
 
         
-        public AdministratorController(ProjectIepAuctionContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager, IMapper mapper)
+        public AdministratorController(ProjectIepAuctionContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager, IMapper mapper, ISchedulerFactory schedulerFactory)
         {
             this.context = context;
             this.userManager = userManager;
             this.roleManager = roleManager;
             this.mapper = mapper;
             this.signInManager = signInManager;
+            this.schedulerFactory = schedulerFactory;
         }
 
         public async Task<IActionResult> UserListAsync(int? page){
@@ -119,10 +126,13 @@ namespace ProjectIepAuction.Controllers{
 
 
             if(auction != null){
-                auction.state = "OPEN";
+                auction.state = "READY";
             }
 
+
             await this.context.SaveChangesAsync();
+
+            await AuctionTaskJob(auction.Id);
 
             //await this.signInManager.RefreshSignInAsync(loggedInUser); 
 
@@ -151,6 +161,43 @@ namespace ProjectIepAuction.Controllers{
             return View();
             
         }
+
+        public async Task<IActionResult> AuctionTaskJob(int? id){
+          if(!schedulerStarted){
+              schedulerStarted = true;
+              this.scheduler = await this.schedulerFactory.GetScheduler();
+              await this.scheduler.Start();
+          }
+
+          Auction a = await this.context.Auctions.FirstOrDefaultAsync(s => s.Id == id);
+
+          string aId = id.ToString();
+          
+          string opDate = a.openDate.Date.ToString();
+          
+          JobDataMap map = new JobDataMap();
+          map.Add("id", aId);
+          
+          map.Add("date", opDate);
+ 
+          IJobDetail job = JobBuilder.Create<TaskQuartzJob>().SetJobData(map).Build();
+
+          DateTime now = DateTime.Now;
+          string todayDate = now.Date.ToString();
+
+          ITrigger trigger;
+
+          if(todayDate == a.openDate.Date.ToString()){
+            trigger = TriggerBuilder.Create().StartAt(new DateTimeOffset(DateTime.Now)).Build();
+          }else{
+            trigger = TriggerBuilder.Create().StartAt(new DateTimeOffset(a.openDate)).Build();
+          }  
+ 
+           await this.scheduler.ScheduleJob(job, trigger);
+           
+           return RedirectToAction(nameof(HomeController.Index), "Home");
+    
+      }
 
     }
 }

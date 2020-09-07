@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Vvs2noQS5kf3tOpA0JWtXsogptTfOS+IlC5gCv6lwnNjKbzihrQ6ca7QnLef0Dpzto5teDq2B5JjKaUWd1V7Sw==",
+  "dgSpecHash": "O6CSY5JblRhQUXmDYycFLKsh0F2MtmUc6xTXYR4euloqrb2puyPZgUYYRaO4O4kvkVviMoq83u9txVPfY9qK9w==",
   "success": true,
   "projectFilePath": "E:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\ProjectIepAuction.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Miroslav&Andjela\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
     "C:\\Users\\Miroslav&Andjela\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.0.1\\automapper.extensions.microsoft.dependencyinjection.8.0.1.nupkg.sha512",
+    "C:\\Users\\Miroslav&Andjela\\.nuget\\packages\\microsoft.aspnet.signalr\\2.4.1\\microsoft.aspnet.signalr.2.4.1.nupkg.sha512",
     "C:\\Users\\Miroslav&Andjela\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\2.2.0\\microsoft.aspnetcore.antiforgery.2.2.0.nupkg.sha512",
     "C:\\Users\\Miroslav&Andjela\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Miroslav&Andjela\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",

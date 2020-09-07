@@ -13,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProjectIepAuction.Factories;
+using Quartz;
+
 
 namespace ProjectIepAuction
 {
@@ -53,12 +55,33 @@ namespace ProjectIepAuction
                 }
             );
 
-            services.AddScoped<IUserClaimsPrincipalFactory<User>, ClaimFactory>();
+            services.AddQuartz(
+                q =>
+                {
+                    q.SchedulerId = "Scheduler-Core";
+                    //q.SchedulerName = "QuartzScheduler";
+                    q.UseMicrosoftDependencyInjectionJobFactory(options =>{
+                        // if we don't have the job in DI, allow fallback to configure via default constructor
+                        options.AllowDefaultConstructor = true;
+                    });
+                    q.UseSimpleTypeLoader();
+                    q.UseInMemoryStore();
+                    q.UseDefaultThreadPool(tp =>
+                    {
+                        tp.MaxConcurrency = 10;
+                    });
+ 
+                    
+                }
+            );
 
+            services.AddScoped<IUserClaimsPrincipalFactory<User>, ClaimFactory>();
+            services.AddSignalR();
             services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        [Obsolete]
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -84,6 +107,7 @@ namespace ProjectIepAuction
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                
             });
         }
     }
