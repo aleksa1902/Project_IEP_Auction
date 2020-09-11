@@ -17,6 +17,15 @@ namespace ProjectIepAuction.Models.View
         public IOrderedQueryable<ProjectIepAuction.Models.Database.Bid> bids;
         public User loggedInUser;
 
+        [Display(Name = "Search")]
+        public string search { get; set; }
+
+        [Display(Name = "Minimum price")]
+        public string minPrice { get; set; }
+
+        [Display(Name = "Minimum price")]
+        public string maxPrice { get; set; }
+
         public Auction auction;
         public string userName;
     }

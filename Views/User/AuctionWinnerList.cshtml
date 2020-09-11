@@ -5,13 +5,17 @@
 }
 
 @if(Model.auctionList.Any()){
-    
+
+<div class="album">
+  <div class="container">
+    <div class="row">
+
     <h1>Winner auction list</h1><hr>
-    <div class="card-columns">
+
     @foreach(var auction in Model.auctionList){       
         string base64 = Convert.ToBase64String(auction.image);
-        <div id="@auction.Id">
-            <div class = "card">
+        <div id="@auction.Id" class="col-md-3">
+        <div class="card mb-2 box-shadow">
                 <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
                 <div class = "card-header">
                     User Id : @auction.Id;
@@ -19,8 +23,8 @@
                 <div class = "card-body">
                     <h5 class = "card-title">@auction.name</h5>
                     <br>
-                    @auction.description; (Create date : @auction.createDate, Start date : @auction.openDate)<br>
-                    Start price : @auction.startPrice;
+                    @auction.description; (Create date : @auction.createDate,<br> Start date : @auction.openDate,<br> Close date: @auction.closeDate)<br>
+                    Price : @auction.currentPrice;
                 </div>
                 <div class="card-footer">
                     <a href="/Home/GetInfoAuction/@auction.Id" type="button" class="btn btn-info">Info</a>
@@ -28,7 +32,9 @@
             </div>
         </div>
     }
-    </div>
+   </div>
+  </div>
+</div>
 }
 else{
     <h1>You havent won any auctions.</h1>

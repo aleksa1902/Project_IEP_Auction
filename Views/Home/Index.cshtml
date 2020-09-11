@@ -6,30 +6,65 @@
   ViewData["Title"] = "Home Page";
 }
 
-    <div class="card-columns">
-        @foreach (var auction in @Model.auctionsList)
-        {
-           string base64 = Convert.ToBase64String(auction.image);
-
-
-        <div class="card">
-          <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
-          <div class="card-body">
-            <h5 class="card-title">Name : @auction.name</h5>
-            <p class="card-text">
-              Current price: @auction.currentPrice<br>
-              Last bid user : <hr>
-              Time :
-
-            </p>
-          </div>
-          <div class="card-footer">
-            <button type="button" class="btn btn-success">Bid</button>
-            <a href="/Home/GetInfoAuction/@auction.Id" type="button" class="btn btn-info">Info</a>
-          </div>
-        </div>
-        }
+<p>
+  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Filter
+  </a>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body bg-warning">
+    <form asp-controller="Home" asp-action="Filter">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="search" class="control-label"></label>
+                <input asp-for="search" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="minPrice" class="control-label"></label>
+                <input asp-for="minPrice" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="maxPrice" class="control-label"></label>
+                <input asp-for="maxPrice" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Search" class="btn btn-success" />
+            </div>
+        </form>
+  </div>
 </div>
+<hr>
+
+<div class="album">
+  <div class="container">
+    <div class="row">
+
+    @foreach (var auction in @Model.auctionsList){
+      string base64 = Convert.ToBase64String(auction.image);
+
+      <div class="col-md-3">
+        <div class="card mb-2 box-shadow">
+          <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
+        <div class="card-body">
+          <h5 class="card-title">Name : @auction.name</h5>
+          <p class="card-text">
+            Current price: @auction.currentPrice<br>
+            Last bid user : <hr>
+            Time :
+          </p>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-success">Bid</button>
+          <a href="/Home/GetInfoAuction/@auction.Id" type="button" class="btn btn-info">Info</a>
+        </div>
+        </div>
+      </div>
+
+    }
+    </div>
+  </div>
+</div>
+
 
 <div class="row justify-content-center">
 @Html.PagedListPager(Model.auctionsList, page => Url.Action("Index", new { page = page }),

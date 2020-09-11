@@ -10,12 +10,16 @@
 
 @if(Model.auctionList.Any()){
     <a asp-controller="User" asp-action="CreateAuction" class = "btn btn-primary mb-3" style="width:auto">Add new auction</a>
-    <div class="card-columns">
+    
+<div class="album">
+  <div class="container">
+    <div class="row">
+    
     @foreach(var auction in Model.auctionList){
         @if(auction.state == "DRAFT"){
             string base64 = Convert.ToBase64String(auction.image);
-            <div id="@auction.Id">
-                <div class = "card">
+            <div id="@auction.Id" class="col-md-3">
+            <div class="card mb-2 box-shadow">
                     <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
                     <div class = "card-header">
                         Auction Id : @auction.Id; DRAFT
@@ -36,8 +40,8 @@
             </div>
         }else if(auction.state == "OPEN"){
             string base64 = Convert.ToBase64String(auction.image);
-            <div id="@auction.Id">
-                <div class = "card bg-success">
+            <div id="@auction.Id" class="col-md-3">
+            <div class="card mb-2 box-shadow bg-success">
                     <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
                     <div class = "card-header">
                         Auction Id : @auction.Id; OPEN
@@ -57,8 +61,8 @@
             </div>
         }else if(auction.state == "DELETED"){
             string base64 = Convert.ToBase64String(auction.image);
-            <div id="@auction.Id">
-                <div class = "card bg-danger">
+            <div id="@auction.Id" class="col-md-3">
+            <div class="card mb-2 box-shadow bg-danger">
                     <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
                     <div class = "card-header">
                         Auction Id : @auction.Id; DELETED
@@ -78,8 +82,8 @@
             </div>
         }else if(auction.state == "READY"){
             string base64 = Convert.ToBase64String(auction.image);
-            <div id="@auction.Id">
-                <div class = "card bg-info">
+            <div id="@auction.Id" class="col-md-3">
+            <div class="card mb-2 box-shadow bg-info">
                     <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
                     <div class = "card-header">
                         Auction Id : @auction.Id; READY
@@ -99,8 +103,8 @@
             </div>
         }else{
             string base64 = Convert.ToBase64String(auction.image);
-            <div id="@auction.Id">
-                <div class = "card bg-secondary">
+            <div id="@auction.Id" class="col-md-3">
+            <div class="card mb-2 box-shadow bg-secondary">
                     <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
                     <div class = "card-header">
                         Auction Id : @auction.Id; EXPIRED/SOLD
@@ -121,6 +125,8 @@
         }
     }
     </div>
+  </div>
+</div>
 }
 else{
     <div class = "card">
