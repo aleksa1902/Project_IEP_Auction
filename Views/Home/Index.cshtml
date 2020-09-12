@@ -1,81 +1,154 @@
-﻿@using X.PagedList.Mvc.Core;
-@using X.PagedList;
-@model ProjectIepAuction.Models.View.IndexModel; 
+﻿@model ProjectIepAuction.Models.View.IndexModel; 
 
 @{
   ViewData["Title"] = "Home Page";
+  int i = 0;
 }
-
+<form>
 <p>
-  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Filter
-  </a>
+  <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Search</a>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Price range</button>
+  <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Auction state</a>
+  <input class="btn btn-danger" type="reset" value="Reset" onclick="clickHandler('1')">
 </p>
-<div class="collapse" id="collapseExample">
-  <div class="card card-body bg-warning">
-    <form asp-controller="Home" asp-action="Filter">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="search" class="control-label"></label>
-                <input asp-for="search" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="minPrice" class="control-label"></label>
-                <input asp-for="minPrice" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="maxPrice" class="control-label"></label>
-                <input asp-for="maxPrice" class="form-control" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Search" class="btn btn-success" />
-            </div>
-        </form>
-  </div>
-</div>
-<hr>
 
-<div class="album">
-  <div class="container">
-    <div class="row">
-
-    @foreach (var auction in @Model.auctionsList){
-      string base64 = Convert.ToBase64String(auction.image);
-
-      <div class="col-md-3">
-        <div class="card mb-2 box-shadow">
-          <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
-        <div class="card-body">
-          <h5 class="card-title">Name : @auction.name</h5>
-          <p class="card-text">
-            Current price: @auction.currentPrice<br>
-            Last bid user : <hr>
-            Time :
-          </p>
+<div class="row">
+  <div class="col">
+    <div class="collapse multi-collapse" id="multiCollapseExample1">
+      <div class="card card-body bg-warning">
+            <div class="form-group">
+                <label class="control-label">Search:</label>
+                <input class="form-control" type="text" id="search"><br>
+              <button type="button" class="btn btn-success" onclick="nextPage('1')">Search</button>
+            </div>
         </div>
-        <div class="card-footer">
-          <button type="button" class="btn btn-success">Bid</button>
-          <a href="/Home/GetInfoAuction/@auction.Id" type="button" class="btn btn-info">Info</a>
-        </div>
-        </div>
-      </div>
-
-    }
     </div>
   </div>
+
+  <div class="col">
+    <div class="collapse multi-collapse" id="multiCollapseExample2">
+      <div class="card card-body bg-warning">
+        <div class="form-group">
+                <label class="control-label">Minimum price:</label>
+                <input class="form-control" type="text" id="minPrice"><br>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Maximum price:</label>
+                <input class="form-control" type="text" id="maxPrice"><br>
+              <button type="button" class="btn btn-success" onclick="nextPage('1')">Search</button>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="col">
+    <div class="collapse multi-collapse" id="multiCollapseExample3">
+      <div class="card card-body bg-warning">
+        <div class="form-group">
+          <label class="control-label">State:</label>
+               <select class="form-control" id = "state">
+                <option value="OPEN">Open</option>
+                <option value="READY">Ready</option>
+                <option value="SOLD">Sold</option>
+                <option value="EXPIRED">Expired</option>
+                <option value="DRAFT">Draft</option>
+                <option value="DELETED">Deleted</option>
+              </select><br>
+          <button type="button" class="btn btn-success" onclick="nextPage('1')">Search</button>
+        </div>
+      </div>
+    </div>
+    </div>  
 </div>
+</form>
+
+<hr>
+
+<div id="auction">
+  <div class="album">
+    <div class="container">
+      <div class="row">
+
+      @foreach (var auction in @Model.auctionsList){
+        string base64 = Convert.ToBase64String(auction.image);
+
+        <div class="col-md-3">
+          <div class="card mb-2 box-shadow">
+            <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
+          <div class="card-body">
+            <h5 class="card-title">Name : @auction.name</h5>
+            <p class="card-text">
+              Current price: @auction.currentPrice<br>
+              Last bid user : <hr>
+              Time :
+              @if(auction.state.Equals("OPEN")){
+              i = i + 1;
+              <input type="hidden" id="@Html.Raw("closeTime"+@i)" value="@auction.closeDate.ToString("yyyy,MM,d,H,m,s")"/>
+              <div id="@Html.Raw("time"+@i)" class="list-group-item text-white bg-success" style="text-align: center;">--:--:--:--</div>
+              }
+            </p>
+          </div>
+          <div class="card-footer">
+            <a href="/Home/Error" type="button" class="btn btn-success">Bid</a>
+            <a href="/Home/GetInfoAuction/@auction.Id" type="button" class="btn btn-info">Info</a>
+          </div>
+          </div>
+        </div>
+
+      }
+      </div>
+    </div>
+  </div>
 
 
-<div class="row justify-content-center">
-@Html.PagedListPager(Model.auctionsList, page => Url.Action("Index", new { page = page }),
-    new X.PagedList.Web.Common.PagedListRenderOptionsBase
-    {
-        DisplayPageCountAndCurrentLocation = true,
-        ContainerDivClasses = new[] { "navigation" },
-        LiElementClasses = new[] { "page-item" },
-        PageClasses = new[] { "page-link" }
-    })
 
-    @section Scripts{
-    
+<div class="row justify-content-center pt-5">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                @if (Model.currentPage > 1){
+                    int previousPage = @Model.currentPage-1;
+                    <li class="page-item">
+                        <button class="page-link" aria-label="Previous" onclick="nextPage(@Model.currentPage - 1)">
+                            <span aria-hidden="true"> @Html.Raw("<") </span>
+                            <span class="sr-only">Previous</span>
+                        </button>
+                    </li>   
+                }
+
+                @for(i = 1; i<=Model.pageNumbers;i++)
+                {
+                    if(i==Model.currentPage)
+                    {
+                        <li class="page-item active">
+                            <button class="page-link">@i</button>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            <button class="page-link" onclick="nextPage('@i')">@i</button>
+                        </li>
+
+                    }
+
+                }
+
+                @if(Model.currentPage < Model.pageNumbers)
+                {
+                    int nextPage = @Model.currentPage+1;
+                    <li class="page-item">
+                        <button class="page-link" aria-label="Next" onclick="nextPage('@nextPage')">
+                            <span aria-hidden="true"> @Html.Raw(">") </span>
+                            <span class="sr-only">Next</span>
+                        </button>
+                    </li>
+                }
+
+            </ul>
+        </nav>
+    </div>
+
+</div>
+@section Scripts{
+    <script src="@Url.Content("~/js/site.js")"></script>
 }

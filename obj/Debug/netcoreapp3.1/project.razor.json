@@ -14442,6 +14442,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Home\\Error.cshtml",
+      "TargetPath": "Views\\Home\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\User\\AuctionWinnerList.cshtml",
       "TargetPath": "Views\\User\\AuctionWinnerList.cshtml",
       "FileKind": "mvc"
@@ -14449,6 +14454,11 @@
     {
       "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Administrator\\BanUser.cshtml",
       "TargetPath": "Views\\Administrator\\BanUser.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Home\\List.cshtml",
+      "TargetPath": "Views\\Home\\List.cshtml",
       "FileKind": "mvc"
     },
     {

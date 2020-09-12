@@ -4,6 +4,7 @@
 
 @{
     ViewData["Title"] = "Auction list";
+    int i = 0;
 }
 
 <h1>Auction List</h1>
@@ -52,7 +53,13 @@
                         Create date : @auction.createDate<br>
                         Start date : @auction.openDate<br>
                         Close date : @auction.closeDate<br>
-                        Start price : @auction.startPrice;
+                        Start price : @auction.startPrice;<br>
+                        Time:
+                        @if(auction.state.Equals("OPEN")){
+                            i = i +1;
+                            <input type="hidden" id="@Html.Raw("closeTime"+@i)" value="@auction.closeDate.ToString("yyyy,MM,d,H,m,s")"/>
+                            <div id="@Html.Raw("time"+@i)" class="list-group-item" style="text-align: center;">--:--:--:--</div>
+                        }
                     </div>
                     <div class = "card-footer">
                         <a href="/Home/GetInfoAuction/@auction.Id" type="button" class="btn btn-info">Info</a>

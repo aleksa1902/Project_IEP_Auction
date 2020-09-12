@@ -37,7 +37,7 @@ namespace ProjectIepAuction.Controllers{
             this.signInManager = signInManager;
             this.schedulerFactory = schedulerFactory;
         }
-
+        [Authorize(Roles="Administrator")]
         public async Task<IActionResult> UserListAsync(int? page){
             var users = userManager.Users; // uzme sve usere
 
@@ -56,6 +56,7 @@ namespace ProjectIepAuction.Controllers{
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles="Administrator")]
         public async Task<IActionResult> Ban ( string username ) {
 
             User loggedInUser = await this.userManager.GetUserAsync(base.User);
@@ -86,6 +87,7 @@ namespace ProjectIepAuction.Controllers{
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles="Administrator")]
         public async Task<IActionResult> Unban ( string username ) {
 
             User loggedInUser = await this.userManager.GetUserAsync(base.User);
@@ -104,7 +106,7 @@ namespace ProjectIepAuction.Controllers{
             
         }
 
-
+        [Authorize(Roles="Administrator")]
         public async Task<IActionResult> AuctionList(int? page){
             IList<Auction> list = await this.context.Auctions.Include(t => t.owner).Where(t => t.state == "DRAFT").OrderByDescending(t => t.createDate).ToListAsync();
             
@@ -117,6 +119,7 @@ namespace ProjectIepAuction.Controllers{
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles="Administrator")]
         public async Task<IActionResult> AcceptAuction ( int? id ) {
 
             User loggedInUser = await this.userManager.GetUserAsync(base.User);
@@ -142,6 +145,7 @@ namespace ProjectIepAuction.Controllers{
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles="Administrator")]
         public async Task<IActionResult> DeclineAuction ( int? id ) {
 
             User loggedInUser = await this.userManager.GetUserAsync(base.User);

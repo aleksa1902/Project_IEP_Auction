@@ -25,20 +25,70 @@ namespace ProjectIepAuction.Controllers
             _logger = logger;
         }
 
-        public async Task<IActionResult> Index(int? page)
+        public async Task<IActionResult> Index()
         {
 
              IList<Auction> list = await this.context.Auctions.Include(t => t.owner).Where(t => t.state == "OPEN").OrderByDescending(t => t.openDate).ToListAsync();
-
+             
+             int auctionsCount = list.Count;
+             
              IndexModel model = new IndexModel()
              {
-                 auctionsList = list.ToPagedList(page ?? 1,12)
+                 currentPage = 1,
+                 pageNumbers = (int)Math.Ceiling(auctionsCount/12.0),
+                 auctionsList = list.ToPagedList(1,12)
              };
 
             return View(model);
            
         }
 
+        public async Task<IActionResult> NextPage(int? page)
+        {
+
+             IList<Auction> list = await this.context.Auctions.Include(t => t.owner).Where(t => t.state == "OPEN").OrderByDescending(t => t.openDate).ToListAsync();
+             
+             int auctionsCount = list.Count;
+             
+             IndexModel auction = new IndexModel()
+             {
+                 currentPage = (int)page,
+                 pageNumbers = (int)Math.Ceiling(auctionsCount/12.0),
+                 auctionsList = list.ToPagedList((int)page,12)
+             };
+
+            return PartialView ("List", auction);
+           
+        }
+
+        public async Task<IActionResult> FilteredPage(int? page, String search, int? minimumPrice, int? maximumPrice, String state)
+        {
+
+            IQueryable<Auction> FilterListAuction = this.context.Auctions;
+            
+            if(search!=null) FilterListAuction = FilterListAuction.Where(a => a.name.Contains(search));
+            
+            if(minimumPrice != null)
+                if(minimumPrice >= 0) FilterListAuction = FilterListAuction.Where(a => a.currentPrice >= minimumPrice);
+            
+            if(maximumPrice != null)
+                if(maximumPrice > 0) FilterListAuction = FilterListAuction.Where(a => a.currentPrice <= maximumPrice);
+            
+            if(state != "OPEN") FilterListAuction = FilterListAuction.Where(a => a.state==state);
+            
+            IList<Auction> list = await FilterListAuction.OrderByDescending(a => a.createDate).ToListAsync();
+             
+             int auctionsCount = list.Count;
+             
+             IndexModel auction = new IndexModel(){
+                 currentPage = (int)page,
+                 pageNumbers = (int)Math.Ceiling(auctionsCount/12.0),
+                 auctionsList = list.ToPagedList((int)page,12)
+             };
+
+            return PartialView ("List", auction);
+           
+        }
 
         public ViewResult GetInfoAuction(int id){
             IndexModel model = new IndexModel();
@@ -60,15 +110,10 @@ namespace ProjectIepAuction.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Filter(IndexModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            return View(model);
+        public IActionResult  Error(){
+            return View();
         }
+
+        
     }
 }

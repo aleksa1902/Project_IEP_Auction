@@ -826,3 +826,5 @@ D:\GitHub\Project_IEP_Auction\obj\Debug\netcoreapp3.1\staticwebassets\ProjectIep
 D:\GitHub\Project_IEP_Auction\obj\Debug\netcoreapp3.1\ProjectIepAuction.dll
 D:\GitHub\Project_IEP_Auction\obj\Debug\netcoreapp3.1\ProjectIepAuction.pdb
 D:\GitHub\Project_IEP_Auction\obj\Debug\netcoreapp3.1\ProjectIepAuction.genruntimeconfig.cache
+D:\GitHub\Project_IEP_Auction\obj\Debug\netcoreapp3.1\Razor\Views\Home\List.cshtml.g.cs
+D:\GitHub\Project_IEP_Auction\obj\Debug\netcoreapp3.1\Razor\Views\Home\Error.cshtml.g.cs

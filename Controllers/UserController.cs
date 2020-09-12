@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
 using ProjectIepAuction.Controllers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectIepAuction.Controllers{
 
@@ -44,9 +45,7 @@ namespace ProjectIepAuction.Controllers{
             {
                 return View(model);
             }
-            /*
-                S obzirom da koristimo Identity biblioteku, ona vec u sebi ima mehanizam za dodavanje novog korsnika. Postoji klasa UserManager koja to radi,.
-            */
+
             User user = this.mapper.Map<User>(model);
             IdentityResult result = await this.userManager.CreateAsync(user, model.password);
             if(!result.Succeeded)
@@ -71,14 +70,7 @@ namespace ProjectIepAuction.Controllers{
             
         } 
 
-        public IActionResult isEmailUnique(string email) 
-        {
-            /*
-                Ova meto da se poziva tako sto se salje zahtev serveru tj. GET zahetv. Sto znaci da se parametri prosledjuju korz adresu, tako sto
-                se navodi ImePolja jednako VrednostPOlja. Sto znaci da metoda koja vrsi proveru mora da ima parametar koji se zove isto kao i polje
-                u Modelu da bi mogo de se izvrsi povezivanje GET parametara sa tim.
-            */
-
+        public IActionResult isEmailUnique(string email) {
             bool exists = this.context.Users.Where(user=>user.Email == email).Any();
 
             if(exists)
@@ -90,11 +82,6 @@ namespace ProjectIepAuction.Controllers{
 
         public IActionResult isUsernameUnique(string username) 
         {
-            /*
-                Ova meto da se poziva tako sto se salje zahtev serveru tj. GET zahetv. Sto znaci da se parametri prosledjuju korz adresu, tako sto
-                se navodi ImePolja jednako VrednostPOlja. Sto znaci da metoda koja vrsi proveru mora da ima parametar koji se zove isto kao i polje
-                u Modelu da bi mogo de se izvrsi povezivanje GET parametara sa tim.
-            */
 
             bool exists = this.context.Users.Where(user=>user.UserName == username).Any();
 
@@ -150,11 +137,13 @@ namespace ProjectIepAuction.Controllers{
       
         }
 
+        [Authorize]
         public async Task<IActionResult> Profile(){
             User loggedInUser = await this.userManager.GetUserAsync(base.User);
             return View(loggedInUser);
         }
-        
+
+        [Authorize]
         public async Task<IActionResult> ChangeProfile(){
             User loggedInUser = await this.userManager.GetUserAsync(base.User);
             ProfileModel model = new ProfileModel()
@@ -166,7 +155,7 @@ namespace ProjectIepAuction.Controllers{
             };
             return View(model);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangeProfile ( ProfileModel model ) {
@@ -208,6 +197,7 @@ namespace ProjectIepAuction.Controllers{
             
         }
 
+        [Authorize]
         public IActionResult NewPassword(){
             return View();
         }
@@ -241,7 +231,8 @@ namespace ProjectIepAuction.Controllers{
 
             return View("ChangePasswordConfirmation");
         }
-
+        
+        [Authorize]
         public IActionResult CreateAuction(){
 
             CreateAuctionModel model = new CreateAuctionModel()
@@ -299,7 +290,8 @@ namespace ProjectIepAuction.Controllers{
             }
         
         }
-
+        
+        [Authorize]
         public async Task<IActionResult> AuctionWinnerList(){       
             User loggedInUser = await this.userManager.GetUserAsync(base.User);
 
@@ -315,6 +307,7 @@ namespace ProjectIepAuction.Controllers{
             return View(model);
         }
 
+        [Authorize]
         public async Task<IActionResult> EditAuctionList(int? page){
             User loggedInUser = await this.userManager.GetUserAsync(base.User);
             
@@ -327,6 +320,7 @@ namespace ProjectIepAuction.Controllers{
             return View(model);
         }
 
+        [Authorize]
         public async Task<IActionResult> EditAuction(int id){
             User loggedInUser = await this.userManager.GetUserAsync(base.User);
 

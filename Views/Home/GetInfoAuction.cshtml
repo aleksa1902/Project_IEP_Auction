@@ -2,6 +2,7 @@
 
 @{
     Layout = "_Layout";
+    int i = 0;
 }
 
 @{
@@ -32,6 +33,12 @@ if(@Model.auction.winner != null){
     Open auction : @Model.auction.openDate<br>
     Close auction : @Model.auction.closeDate<br>
     Auction owner : @Model.auction.owner<br>
+    Time:
+    @if(Model.auction.state.Equals("OPEN")){
+            i = i +1;
+            <input type="hidden" id="@Html.Raw("closeTime"+@i)" value="@Model.auction.closeDate.ToString("yyyy,MM,d,H,m,s")"/>
+            <div id="@Html.Raw("time"+@i)" class="list-group-item" style="text-align: center;">--:--:--:--</div>
+    }
   </div>
   <div class="card-footer">
     Price : @Model.auction.currentPrice<hr>

@@ -51,7 +51,7 @@ namespace ProjectIepAuction
             services.ConfigureApplicationCookie (
                 options => {
                     options.LoginPath = "/User/LogIn";
-                    options.AccessDeniedPath = "/Error";
+                    options.AccessDeniedPath = "/Home/Error";
                 }
             );
 
