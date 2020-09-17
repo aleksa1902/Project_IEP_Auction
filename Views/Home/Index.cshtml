@@ -74,7 +74,7 @@
         string base64 = Convert.ToBase64String(auction.image);
 
         <div class="col-md-3">
-          <div class="card mb-2 box-shadow" id="@Html.Raw("changeColor"+@auction.Id)">
+          <div class="card mb-2 box-shadow">
             <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
           <div class="card-body">
             <h5 class="card-title">Name : @auction.name</h5>
@@ -89,7 +89,7 @@
               Time :
               @if(auction.state.Equals("OPEN")){
               i = i + 1;
-              <div id="@Html.Raw("changeColor"+@auction.Id)" class="@Html.Raw("changeColor"+@auction.Id)">
+              <div id="@Html.Raw("changeColor"+@auction.Id)">
                 <input type="hidden" id="@Html.Raw("closeTime"+@i)" class="@Html.Raw("closeTime"+@auction.Id)" value="@auction.closeDate.ToString("yyyy,MM,d,H,m,s")"/>
                 <div class="list-group-item bg-success text-white" style="text-align: center;"><i class="fa fa-clock-o" aria-hidden="true"></i> <span class="@Html.Raw("time"+@auction.Id)" id="@Html.Raw("time"+@i)">--:--:--:--</span></div>
                 <input type="hidden" id="@Html.Raw("auctionId"+@i)" value="@auction.Id">

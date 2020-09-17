@@ -6,11 +6,12 @@
 
 @if(Model.auctionList.Any()){
 
+<h1>Winner auction list</h1><hr>
+
 <div class="album">
   <div class="container">
     <div class="row">
-
-    <h1>Winner auction list</h1><hr>
+    
 
     @foreach(var auction in Model.auctionList){       
         string base64 = Convert.ToBase64String(auction.image);

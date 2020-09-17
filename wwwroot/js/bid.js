@@ -81,9 +81,8 @@ function close(auctionId){
 }
 
 connection.on("closeAuction",function (auctionId){
-     alert(auctionId);
-        $(".changeColor"+auctionId).val("<div class='list-group-item bg-danger text-white' style='text-align: center;'>CLOSED</div>");
-        $(".divBid"+auctionId).val("");
+     document.getElementById("changeColor"+auctionId).innerHTML = "<div class='list-group-item bg-danger text-white' style='text-align: center;'>CLOSED</div>";
+     document.getElementById("divBid"+auctionId).innerHTML = "<div class='list-group-item bg-danger text-white' style='text-align: center;'>CLOSED</div>";
     }
 );
 
