@@ -38,7 +38,9 @@
           <div class="card-footer">
             <div class="row"> 
               <div class="col" id = "@Html.Raw("divBid"+@auction.Id)">
+                @if(auction.state == "OPEN"){
               <input type="button" class="btn btn-success" onclick="Bid('@auction.Id')" value="Bid"  />
+                }
               </div>
               <div class="col">
               <a href="/Home/GetInfoAuction/@auction.Id" type="button" class="btn btn-info">Info</a>

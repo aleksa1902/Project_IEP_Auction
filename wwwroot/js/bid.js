@@ -86,7 +86,7 @@ connection.on("closeAuction",function (auctionId){
     }
 );
 
-function countDown(){
+function timer(){
     var i;
     for(i=1; i<=12; i++){
         var string = $("#closeTime"+i).val();
@@ -134,4 +134,4 @@ function countDown(){
  
     
 }
-setInterval(countDown,1000);
+setInterval(timer,1000);
