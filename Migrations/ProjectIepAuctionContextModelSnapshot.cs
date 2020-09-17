@@ -48,15 +48,15 @@ namespace ProjectIepAuction.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a28dc680-c5f6-4bf6-8c11-507d4cc37c72",
-                            ConcurrencyStamp = "37c3c944-da05-4266-a195-62715dc68119",
+                            Id = "1a06dff5-af40-426a-be55-b3af83b4f93d",
+                            ConcurrencyStamp = "2a92dd85-9731-412d-a429-9a312a138e45",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "df956c98-82db-4fed-9465-64b4b78f1b2d",
-                            ConcurrencyStamp = "429754f4-77e8-4874-bc56-78c9e0b9ac0f",
+                            Id = "e012f0f4-75f4-44e3-afae-d05ec5809b27",
+                            ConcurrencyStamp = "6cf9e9f0-a1f7-40f4-a03a-0f4759f507b3",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -266,8 +266,10 @@ namespace ProjectIepAuction.Migrations
 
             modelBuilder.Entity("ProjectIepAuction.Models.Database.Bid", b =>
                 {
-                    b.Property<string>("userId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("auctionId")
                         .HasColumnType("int");
@@ -278,9 +280,14 @@ namespace ProjectIepAuction.Migrations
                     b.Property<int>("price")
                         .HasColumnType("int");
 
-                    b.HasKey("userId", "auctionId");
+                    b.Property<string>("userId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("auctionId");
+
+                    b.HasIndex("userId");
 
                     b.ToTable("Bids");
                 });
@@ -470,9 +477,7 @@ namespace ProjectIepAuction.Migrations
 
                     b.HasOne("ProjectIepAuction.Models.Database.User", "user")
                         .WithMany("BidList")
-                        .HasForeignKey("userId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("userId");
                 });
 
             modelBuilder.Entity("ProjectIepAuction.Models.Database.TokenTransaction", b =>

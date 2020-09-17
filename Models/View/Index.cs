@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Linq;
 using X.PagedList;
+using System;
 
 namespace ProjectIepAuction.Models.View
 {
@@ -14,10 +15,14 @@ namespace ProjectIepAuction.Models.View
         public List<User> userList;
         public List<Auction> auctionList;
         public IPagedList<Auction> auctionsList {get; set;}
-        public IOrderedQueryable<ProjectIepAuction.Models.Database.Bid> bids;
+        public IPagedList<Bid> bids;
         public User loggedInUser;
-
         public Auction auction;
         public string userName;
+        public int pageNumbers;
+        public int currentPage;
+        public List<KeyValuePair<int, string>> winners;
+
+        public List<KeyValuePair<int, string>> userNames;
     }
 }

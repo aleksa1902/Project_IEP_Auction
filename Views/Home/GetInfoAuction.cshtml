@@ -1,43 +1,117 @@
 @model ProjectIepAuction.Models.View.IndexModel
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
 
 @{
     Layout = "_Layout";
+    int i = 0;
+    int num = 0;
+    string flag;
 }
 
 @{
 string base64 = Convert.ToBase64String(@Model.auction.image);
+}
+    @if(@Model.auction.state == "OPEN"){
+        flag = "bg-info";
+    }else if(@Model.auction.state == "SOLD"){
+        flag = "bg-success";
+    }else if(@Model.auction.state == "EXPIRED"){
+        flag = "bg-danger";
+    }else if(@Model.auction.state == "READY"){
+        flag = "bg-primary";
+    }else{
+        flag = "bg-warning";
+    }
+    
+  <div class="card mb-3 @flag">
+    <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
+    <div class="card-body">
+      <h5 class="card-title">Auction name : @Model.auction.name</h5>
+      <p class="card-text">
+        Description : @Model.auction.description <br>
+        Open auction : @Model.auction.openDate<br>
+        Close auction : @Model.auction.closeDate<br>
+        Auction owner : @Model.auction.owner<br>
+        Time:
+        @if(Model.auction.state.Equals("OPEN")){
+          i = i + 1;
+          <div id="@Html.Raw("changeColor"+@Model.auction.Id)">
+                <input type="hidden" id="@Html.Raw("closeTime"+@i)" class="@Html.Raw("closeTime"+@Model.auction.Id)" value="@Model.auction.closeDate.ToString("yyyy,MM,d,H,m,s")"/>
+                <div class="list-group-item bg-success text-white" style="text-align: center;"><i class="fa fa-clock-o" aria-hidden="true"></i> <span class="@Html.Raw("time"+@Model.auction.Id)" id="@Html.Raw("time"+@i)">--:--:--:--</span></div>
+              </div>
+        }
+    
+      <div class="card-footer">
+          Current price:<span id="@Html.Raw("price"+@Model.auction.Id)"> @Model.auction.currentPrice </span><br>
+          Last bid user : 
+          <span id="@Html.Raw("winner"+@Model.auction.Id)"> 
+              @Model.winners.Where(u => u.Key == Model.auction.Id).FirstOrDefault().Value
+          </span><br>
+    <input type="hidden" id="@Html.Raw("auctionId"+@i)" name="custId" value="@Model.auction.Id">
+    <div class="row"> 
+        @if(@Model.auction.state == "OPEN"){
+              <div class="col" id = "@Html.Raw("divBid"+@Model.auction.Id)">
+              <input type="button" class="btn btn-success" onclick="Bid('@Model.auction.Id')" value="Bid"  />
+              </div>
+            }
+            </div>
+  </div>
+  </div>
+  </div>
 
-if(@Model.auction.winner != null){
-  <div class="card mb-3 bg-success">
-  <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
-  <div class="card-body">
-    <h5 class="card-title">Auction name : @Model.auction.name</h5>
-    <p class="card-text">Description : @Model.auction.description <br>
-    Closed auction : @Model.auction.closeDate<br>
-    Auction owner : @Model.auction.owner<br>
-    Auction winner : @Model.auction.winner</p>
-  </div>
-  <div class="card-footer">
-    Price : @Model.auction.currentPrice<hr>
-    <a href="/Home/BidList/@Model.auction.Id" type="button" class="btn btn-warning">Bid list</a>
-  </div>
-</div>
-}else{
-  <div class="card mb-3 bg-info">
-  <img class="card-img-top" src="data:image/png;base64, @base64" alt="Card image cap" />
-  <div class="card-body">
-    <h5 class="card-title">Auction name : @Model.auction.name</h5>
-    <p class="card-text">
-    Description : @Model.auction.description <br>
-    Open auction : @Model.auction.openDate<br>
-    Close auction : @Model.auction.closeDate<br>
-    Auction owner : @Model.auction.owner<br>
-  </div>
-  <div class="card-footer">
-    Price : @Model.auction.currentPrice<hr>
-    <button type="button" class="btn btn-success">Bid</button>
-    <a href="/Home/BidList/@Model.auction.Id" type="button" class="btn btn-warning">Bid list</a>
-  </div>
-</div>
+
+<h1>Transaction history</h1><hr>
+
+    <table class="table">
+    <thead>
+        <tr>
+         <th >#</th>
+         <th >Date</th>
+         <th >UserName</th>
+         <th >Price</th>
+        </tr>
+    </thead>
+    <tbody>
+       @foreach (var item in @Model.bids)
+        {
+            
+            num++;
+            <tr>
+                <th scope="row">@num</th>
+
+                <td>@item.bidDate</td>
+
+                <td>@Model.userNames.Where(u => u.Key == item.Id).FirstOrDefault().Value</td>
+
+                <td style="font-weight: bold;">@item.price$</td>
+            </tr>
+
+           
+        }
+    </tbody>
+    </table>
+
+
+<div class="row justify-content-center">
+@Html.PagedListPager(Model.bids, page => Url.Action("GetInfoAuction", new { page = page }),
+    new X.PagedList.Web.Common.PagedListRenderOptionsBase
+    {
+        DisplayPageCountAndCurrentLocation = true,
+        ContainerDivClasses = new[] { "navigation" },
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" }
+    })
+
+    @section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('ul.pagination > li.disabled > a').addClass('page-link');
+        });   
+    </script>
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/js/bid.js"></script>
 }
-}
+
+</div>

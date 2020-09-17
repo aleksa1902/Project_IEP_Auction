@@ -37,7 +37,7 @@ namespace ProjectIepAuction.Controllers{
             this.signInManager = signInManager;
             this.schedulerFactory = schedulerFactory;
         }
-
+        [Authorize(Roles="Administrator")]
         public async Task<IActionResult> UserListAsync(int? page){
             var users = userManager.Users; // uzme sve usere
 
@@ -56,6 +56,7 @@ namespace ProjectIepAuction.Controllers{
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles="Administrator")]
         public async Task<IActionResult> Ban ( string username ) {
 
             User loggedInUser = await this.userManager.GetUserAsync(base.User);
@@ -86,6 +87,7 @@ namespace ProjectIepAuction.Controllers{
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles="Administrator")]
         public async Task<IActionResult> Unban ( string username ) {
 
             User loggedInUser = await this.userManager.GetUserAsync(base.User);
@@ -104,10 +106,20 @@ namespace ProjectIepAuction.Controllers{
             
         }
 
-
+        [Authorize(Roles="Administrator")]
         public async Task<IActionResult> AuctionList(int? page){
             IList<Auction> list = await this.context.Auctions.Include(t => t.owner).Where(t => t.state == "DRAFT").OrderByDescending(t => t.createDate).ToListAsync();
             
+            foreach(Auction auction in list){
+                if(auction.openDate < DateTime.Now){
+                    auction.state = "EXPIRED";
+
+                    await this.context.SaveChangesAsync();
+                }
+            }
+
+            list = await this.context.Auctions.Include(t => t.owner).Where(t => t.state == "DRAFT").OrderByDescending(t => t.createDate).ToListAsync();
+
             UserListModel model = new UserListModel(){
                 auctionList = list.ToPagedList(page ?? 1,10)
             };
@@ -117,6 +129,7 @@ namespace ProjectIepAuction.Controllers{
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles="Administrator")]
         public async Task<IActionResult> AcceptAuction ( int? id ) {
 
             User loggedInUser = await this.userManager.GetUserAsync(base.User);
@@ -142,6 +155,7 @@ namespace ProjectIepAuction.Controllers{
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles="Administrator")]
         public async Task<IActionResult> DeclineAuction ( int? id ) {
 
             User loggedInUser = await this.userManager.GetUserAsync(base.User);
@@ -187,17 +201,14 @@ namespace ProjectIepAuction.Controllers{
 
           ITrigger trigger;
 
-          if(todayDate == a.openDate.Date.ToString()){
-            trigger = TriggerBuilder.Create().StartAt(new DateTimeOffset(DateTime.Now)).Build();
-          }else{
-            trigger = TriggerBuilder.Create().StartAt(new DateTimeOffset(a.openDate)).Build();
-          }  
+          trigger = TriggerBuilder.Create().StartAt(new DateTimeOffset(a.openDate)).Build();  
  
            await this.scheduler.ScheduleJob(job, trigger);
            
            return RedirectToAction(nameof(HomeController.Index), "Home");
     
-      }
+        }
+
 
     }
 }

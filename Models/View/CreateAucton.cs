@@ -29,14 +29,24 @@ namespace ProjectIepAuction.Models.View
         public DateTime createDate{get; set;}
 
         [Required]
+        [Display ( Name = "Open date")]
         [DataType(DataType.Date)]
  
         public DateTime openDate{get; set;}
 
         [Required]
+        [Display ( Name = "Close date")]
         [DataType(DataType.Date)]
 
         public DateTime closeDate{get; set;}
+
+        public int openHour{get;set;}
+
+        public int closeHour{get;set;}
+
+        public int openMinute{get;set;}
+
+        public int closeMinute{get;set;}
 
     }
 }

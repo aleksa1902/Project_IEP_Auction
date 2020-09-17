@@ -1,5 +1,5 @@
 {
-  "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\ProjectIepAuction.csproj",
+  "FilePath": "d:\\GitHub\\Project_IEP_Auction\\ProjectIepAuction.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "3.0",
@@ -14392,128 +14392,143 @@
   "RootNamespace": "ProjectIepAuction",
   "Documents": [
     {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\Administrator\\BanUser.cshtml",
-      "TargetPath": "Views\\Administrator\\BanUser.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\_ViewStart.cshtml",
-      "TargetPath": "Views\\_ViewStart.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\Shared\\_Layout.cshtml",
-      "TargetPath": "Views\\Shared\\_Layout.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\Payment\\Payment.cshtml",
-      "TargetPath": "Views\\Payment\\Payment.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\Home\\GetInfoAuction.cshtml",
-      "TargetPath": "Views\\Home\\GetInfoAuction.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\Shared\\Error.cshtml",
-      "TargetPath": "Views\\Shared\\Error.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\User\\NewPassword.cshtml",
-      "TargetPath": "Views\\User\\NewPassword.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\User\\ChangeProfile.cshtml",
-      "TargetPath": "Views\\User\\ChangeProfile.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\User\\CreateAuction.cshtml",
-      "TargetPath": "Views\\User\\CreateAuction.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\Administrator\\AuctionList.cshtml",
-      "TargetPath": "Views\\Administrator\\AuctionList.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\Home\\BidList.cshtml",
-      "TargetPath": "Views\\Home\\BidList.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\User\\Register.cshtml",
-      "TargetPath": "Views\\User\\Register.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\Administrator\\UnbanUser.cshtml",
-      "TargetPath": "Views\\Administrator\\UnbanUser.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\User\\AuctionWinnerList.cshtml",
-      "TargetPath": "Views\\User\\AuctionWinnerList.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\Administrator\\UserList.cshtml",
-      "TargetPath": "Views\\Administrator\\UserList.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\Shared\\User.cshtml",
-      "TargetPath": "Views\\Shared\\User.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\Home\\Privacy.cshtml",
-      "TargetPath": "Views\\Home\\Privacy.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\User\\LogIn.cshtml",
-      "TargetPath": "Views\\User\\LogIn.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
-      "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\User\\ChangePasswordConfirmation.cshtml",
-      "TargetPath": "Views\\User\\ChangePasswordConfirmation.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\Home\\Index.cshtml",
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\User\\EditAuctionList.cshtml",
-      "TargetPath": "Views\\User\\EditAuctionList.cshtml",
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\User\\EditAuction.cshtml",
-      "TargetPath": "Views\\User\\EditAuction.cshtml",
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Home\\Chat.cshtml",
+      "TargetPath": "Views\\Home\\Chat.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\_ViewImports.cshtml",
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\User\\Profile.cshtml",
+      "TargetPath": "Views\\User\\Profile.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\User\\NewPassword.cshtml",
+      "TargetPath": "Views\\User\\NewPassword.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Administrator\\UserList.cshtml",
+      "TargetPath": "Views\\Administrator\\UserList.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\User\\CreateAuction.cshtml",
+      "TargetPath": "Views\\User\\CreateAuction.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Administrator\\AuctionList.cshtml",
+      "TargetPath": "Views\\Administrator\\AuctionList.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "e:\\Aleksa\\ProjekatIEP\\ProjectIepAuction\\Views\\User\\Profile.cshtml",
-      "TargetPath": "Views\\User\\Profile.cshtml",
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Payment\\Payment.cshtml",
+      "TargetPath": "Views\\Payment\\Payment.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\User\\Register.cshtml",
+      "TargetPath": "Views\\User\\Register.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Home\\Error.cshtml",
+      "TargetPath": "Views\\Home\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\User\\AuctionWinnerList.cshtml",
+      "TargetPath": "Views\\User\\AuctionWinnerList.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Administrator\\BanUser.cshtml",
+      "TargetPath": "Views\\Administrator\\BanUser.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Home\\List.cshtml",
+      "TargetPath": "Views\\Home\\List.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Home\\GetInfoAuction.cshtml",
+      "TargetPath": "Views\\Home\\GetInfoAuction.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Home\\Privacy.cshtml",
+      "TargetPath": "Views\\Home\\Privacy.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Administrator\\UnbanUser.cshtml",
+      "TargetPath": "Views\\Administrator\\UnbanUser.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Shared\\Error.cshtml",
+      "TargetPath": "Views\\Shared\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\User\\ChangeProfile.cshtml",
+      "TargetPath": "Views\\User\\ChangeProfile.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Shared\\User.cshtml",
+      "TargetPath": "Views\\Shared\\User.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\_ViewStart.cshtml",
+      "TargetPath": "Views\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\User\\EditAuctionList.cshtml",
+      "TargetPath": "Views\\User\\EditAuctionList.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Home\\BidList.cshtml",
+      "TargetPath": "Views\\Home\\BidList.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\User\\EditAuction.cshtml",
+      "TargetPath": "Views\\User\\EditAuction.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\User\\ChangePasswordConfirmation.cshtml",
+      "TargetPath": "Views\\User\\ChangePasswordConfirmation.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\User\\LogIn.cshtml",
+      "TargetPath": "Views\\User\\LogIn.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Shared\\_Layout.cshtml",
+      "TargetPath": "Views\\Shared\\_Layout.cshtml",
       "FileKind": "mvc"
     }
   ],

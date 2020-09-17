@@ -3,6 +3,7 @@
 
 // Write your JavaScript code.
 
+
 function buyTokens ( ) {
     var verificationToken = $("input[name='__RequestVerificationToken']").val ( ) //Znaci ovde ga dohvatimo, on se nalazi na svakoj starnici
 
@@ -37,7 +38,6 @@ $( document ).ready(function() {
         onApprove: function ( data, actions ) {
             return actions.order.capture ( ).then (
                 function ( details ) {
-                    alert ( "SUCCESS " + details.payer.name.given_name)
                     buyTokens(); //i ovde kada je PayPal uspeo, prikaze se alert da je sve uspesno, obavi se upisu bazu i refreshuje se stranica :D moz
 
                 }
@@ -130,4 +130,77 @@ function declineAuction(id)
             location.reload(); 
         }
     })
+}
+
+function nextPage(nextPage){
+    var search = $("#search").val();
+    var minPrice = $("#minPrice").val();
+    var maxPrice = $("#maxPrice").val();
+    var state = $("#state").children("option:selected").val();
+
+    if(search == "" && minPrice == "" && maxPrice == "" && state == "OPEN"){
+        $.ajax ({  
+            type: "POST", 
+            url: "/Home/NextPage", 
+            data: { 
+                "page":nextPage,
+            },
+            dataType: "text",
+            success: function ( response ) {
+                $("#auction").html(response);
+            },
+            error: function ( response ) {
+                alert ( response ) 
+            }
+        });
+    }else{
+        $.ajax ({  
+            type: "POST", 
+            url: "/Home/FilteredPage", 
+            data: { 
+                "page":nextPage,
+                "search":search,
+                "minimumPrice":minPrice,
+                "maximumPrice":maxPrice,
+                "state":state
+            },
+            dataType: "text",
+            success: function ( response ) {
+                $("#auction").html(response);
+            },
+            error: function ( response ) {
+                alert ( response ) 
+            }
+        });
+    }
+
+    
+}
+
+function clickHandler(delay){
+    if(search != "" && minPrice != "" && maxPrice != "" && state != "OPEN"){
+    setTimeout( function() { nextPage('1'); }, delay );
+    }
+}
+
+function nadjiUsera(id, i){
+    var verificationToken = $("input[name='__RequestVerificationToken']").val ( )
+
+    return $.ajax ({  
+        type: "POST", 
+        url: "/User/FindUser", 
+        data: { 
+            "auctionId": id,
+            "i": i,
+            "__RequestVerificationToken" : verificationToken 
+        },
+        dataType: "text",
+        success: function ( response ) {
+            alert(response);
+            document.getElementById("winner"+i).innerHTML = response;       
+        },
+        error: function ( response ) {
+            alert ( "Sorry, you dont have tokens." ) 
+        }
+    });
 }
