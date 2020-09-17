@@ -24,7 +24,6 @@
             break;
     
     }
-    string klasa;
 }
     
 <!DOCTYPE html>
@@ -48,6 +47,7 @@
 <body>
     <header>
         @{var boja = "NULL";}
+        
         @if(role == "Administrator") boja = "#DC143C"; 
         else if(role == "User") boja = "#8797ff";
         else boja = "#BDB76B";
