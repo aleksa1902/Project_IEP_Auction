@@ -6,7 +6,8 @@ connection.on("ReceiveBid", function (price, winner, auctionId, date) {
     document.getElementById("price"+auctionId).innerHTML= price;
     document.getElementById("winner"+auctionId).innerHTML= winner;
     if(date != "NULL"){
-        document.getElementById("closeTime"+auctionId).value = date;
+        //alert("TU SAM " + date);
+        $(".closeTime"+auctionId).val(date);
     }
 });
 
@@ -67,14 +68,10 @@ function close(auctionId){
         },
         dataType: "json",
         success: function ( response ) {
-            if(flag == true){
-                alert("ZAVRSIO SAM");
-                connection.invoke("CloseAuction", auctionId.toString()).catch(function (err) {
-                    return console.error(err.toString());
-                });
-            }else{
-                alert(response.alert);
-            }
+            connection.invoke("CloseAuction", auctionId.toString()).catch(function (err) {
+                return console.error(err.toString());
+            });
+           
         },
         error: function ( response ) {
 
@@ -84,8 +81,9 @@ function close(auctionId){
 }
 
 connection.on("closeAuction",function (auctionId){
-        $("changeColor"+auctionId).val("<div class='list-group-item bg-danger text-white' style='text-align: center;'>CLOSED</div>");
-        $("divBid"+auctionId).val("");
+     alert(auctionId);
+        $(".changeColor"+auctionId).val("<div class='list-group-item bg-danger text-white' style='text-align: center;'>CLOSED</div>");
+        $(".divBid"+auctionId).val("");
     }
 );
 

@@ -89,7 +89,7 @@
               Time :
               @if(auction.state.Equals("OPEN")){
               i = i + 1;
-              <div id="@Html.Raw("changeColor"+@auction.Id)">
+              <div id="@Html.Raw("changeColor"+@auction.Id)" class="@Html.Raw("changeColor"+@auction.Id)">
                 <input type="hidden" id="@Html.Raw("closeTime"+@i)" class="@Html.Raw("closeTime"+@auction.Id)" value="@auction.closeDate.ToString("yyyy,MM,d,H,m,s")"/>
                 <div class="list-group-item bg-success text-white" style="text-align: center;"><i class="fa fa-clock-o" aria-hidden="true"></i> <span class="@Html.Raw("time"+@auction.Id)" id="@Html.Raw("time"+@i)">--:--:--:--</span></div>
                 <input type="hidden" id="@Html.Raw("auctionId"+@i)" value="@auction.Id">
@@ -101,7 +101,7 @@
           </div>
           <div class="card-footer">
             <div class="row"> 
-              <div class="col" id = "@Html.Raw("divBid"+@auction.Id)">
+              <div class="col" id = "@Html.Raw("divBid"+@auction.Id)" class="@Html.Raw("divBid"+@auction.Id)">
               <input type="button" class="btn btn-success" onclick="Bid('@auction.Id')" value="Bid"  />
               </div>
               <div class="col">

@@ -12,8 +12,8 @@ namespace ProjectIepAuction.Hubs
         }
 
         public async Task CloseAuction(string auctionId){
-            await Console.Out.WriteLineAsync("USAO SAM U HUB");
-            await base.Clients.All.SendAsync("closeAuction", auctionId);
+            await Console.Out.WriteLineAsync("USAO SAM U HUB CLOSE");
+            await Clients.All.SendAsync("closeAuction", auctionId);
 
         }
     }

@@ -460,6 +460,11 @@ namespace ProjectIepAuction.Controllers{
             await Console.Out.WriteLineAsync("USAO SAM");
 
             User loggedInUser = await this.userManager.GetUserAsync(base.User);
+
+            if(loggedInUser == null){
+                return  Json(new { flag = false, alert = "You are not logged in, please log in" });
+            }
+
                        
             Auction auction = this.context.Auctions.Where(a => a.Id == (int)auctionId).FirstOrDefault();
 
@@ -492,10 +497,11 @@ namespace ProjectIepAuction.Controllers{
                 oldWinner = this.context.Users.Where(u => u.Id == oldWin.UserId).FirstOrDefault();
             }
 
+            
             if(loggedInUser.Id != owner.UserId){ 
-                await Console.Out.WriteLineAsync("NIJE VLASNIK");               
+                //await Console.Out.WriteLineAsync("NIJE VLASNIK");               
                 if(loggedInUser.tokens > auction.currentPrice){
-                    await Console.Out.WriteLineAsync("IMA TOKENA");
+                   // await Console.Out.WriteLineAsync("IMA TOKENA");
                     
                     auction.currentPrice = auction.currentPrice + 1;
 
@@ -505,7 +511,15 @@ namespace ProjectIepAuction.Controllers{
                     int time = 0;
 
                     if(timeLeft.TotalSeconds <= 10){
-                        auction.closeDate = auction.closeDate.AddSeconds(10);
+                        if(timeLeft.TotalSeconds <= 1) auction.closeDate = auction.closeDate.AddSeconds(10);
+                        else if(timeLeft.TotalSeconds <= 2) auction.closeDate = auction.closeDate.AddSeconds(9);
+                        else if(timeLeft.TotalSeconds <= 3) auction.closeDate = auction.closeDate.AddSeconds(8);
+                        else if(timeLeft.TotalSeconds <= 4) auction.closeDate = auction.closeDate.AddSeconds(7);
+                        else if(timeLeft.TotalSeconds <= 5) auction.closeDate = auction.closeDate.AddSeconds(6);
+                        else if(timeLeft.TotalSeconds <= 6) auction.closeDate = auction.closeDate.AddSeconds(5);
+                        else if(timeLeft.TotalSeconds <= 7) auction.closeDate = auction.closeDate.AddSeconds(4);
+                        else if(timeLeft.TotalSeconds <= 8) auction.closeDate = auction.closeDate.AddSeconds(3);
+                        else auction.closeDate = auction.closeDate.AddSeconds(2);
                         time = 1;
                     }
 
@@ -518,7 +532,7 @@ namespace ProjectIepAuction.Controllers{
                         }
                         catch (DbUpdateConcurrencyException e)
                         {
-                            return Json(new { flag = false, alert = "Neko je vec bidovao, pokusajte ponovo" });
+                            return Json(new { flag = false, alert = "Someone has already made an offer, please try again !" });
                         }
                     }
                     await Console.Out.WriteLineAsync("SACUVAO AUKCIJU");
@@ -558,10 +572,10 @@ namespace ProjectIepAuction.Controllers{
     
                 }else{
                     
-                    return  Json(new { flag = false, alert = "You dont have enought tokens on your account!" });
+                    return  Json(new { flag = false, alert = "You don't have enough tokens, buy more tokens !" });
                 }
             }else{
-                return  Json(new { flag = false, alert = "Vi ste vlasnik !" });
+                return  Json(new { flag = false, alert = "You are the owner of the auction, you are not allowed to do this" });
             }
 
             
@@ -571,8 +585,9 @@ namespace ProjectIepAuction.Controllers{
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CloseBid(int? auctionId)
-        {
+        public async Task<IActionResult> CloseBid(int? auctionId){
+
+            await Console.Out.WriteLineAsync("USAO SAM");
 
             Auction auction = await this.context.Auctions.Include(a => a.winner).Where(a => a.Id == (int)auctionId).FirstOrDefaultAsync();
 
@@ -580,19 +595,25 @@ namespace ProjectIepAuction.Controllers{
                 if(auction.winner != null){
                     auction.state = "SOLD";
                 }else{
+                    await Console.Out.WriteLineAsync("USAO SAM2");
                     auction.state = "EXPIRED";
                 }
             }
 
-            try
-            {
+            try{
                 this.context.Update(auction);
-                await this.context.SaveChangesAsync();
+                this.context.SaveChanges( );
             }
             catch(DbUpdateConcurrencyException e){
-                return Json(new { flag = false, alert = "" });
+                return Json(new { flag = false });
 
             }
+
+            await Console.Out.WriteLineAsync("sacuvao sam");
+
+            await this.context.SaveChangesAsync();
+
+            await Console.Out.WriteLineAsync("izasao sam");
 
             return Json(new {
                 flag = true
