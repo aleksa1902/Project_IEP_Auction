@@ -181,6 +181,10 @@ namespace ProjectIepAuction.Controllers{
                 }
             }
 
+            if(loggedInUser.UserName != model.username){
+                loggedInUser.UserName = model.username;
+            }
+
             if(loggedInUser.firstName != model.firstName){
                 loggedInUser.firstName = model.firstName;
             }
@@ -215,12 +219,17 @@ namespace ProjectIepAuction.Controllers{
                 return RedirectToAction ( nameof ( UserController.Profile ), "Home" );
             }
 
+
            var result = await userManager.ChangePasswordAsync(loggedInUser, model.oldPassword, model.newPassword);
 
             if(!result.Succeeded)
             {
-                //foreach(IdentityError error in result.Errors)
-                    ModelState.AddModelError("", "Matori unesi sva polja pravilno!"/*error.Description*/);
+                    ModelState.AddModelError("", "Something is wrong");
+                
+                return View(model);
+            }
+            if(model.oldPassword == model.newPassword){
+                ModelState.AddModelError("", "Old and new passwords must not be the same");
                 
                 return View(model);
             }
@@ -252,7 +261,23 @@ namespace ProjectIepAuction.Controllers{
 
             User loggedInUser = await this.userManager.GetUserAsync(base.User);
 
-            if(model.openDate < DateTime.Today){
+            if(model.openHour > 0){
+                model.openDate = model.openDate.AddHours(Convert.ToDouble(model.openHour));
+            }
+
+            if(model.openMinute > 0){
+                model.openDate = model.openDate.AddMinutes(Convert.ToDouble(model.openMinute));
+            }
+
+            if(model.closeHour > 0){
+                model.closeDate = model.closeDate.AddHours(model.closeHour);
+            }
+
+            if(model.closeMinute > 0){
+                model.closeDate = model.closeDate.AddMinutes(model.closeMinute);
+            }
+
+            if(model.openDate < DateTime.Now){
                 ModelState.AddModelError ( "", "Open date not valid!" );
                     return View ( model );
             }
@@ -266,6 +291,10 @@ namespace ProjectIepAuction.Controllers{
                 ModelState.AddModelError ( "", "Start price not valid!" );
                     return View ( model );
             }
+
+            await Console.Out.WriteLineAsync(model.openDate + "===" + model.closeDate);
+            await Console.Out.WriteLineAsync(model.openDate + "===" + model.closeDate);
+            await Console.Out.WriteLineAsync(model.openDate + "===" + model.closeDate);
 
             using ( BinaryReader reader = new BinaryReader ( model.image.OpenReadStream ( ) ) ) {
                 Auction auction = new Auction ( ) {
@@ -301,7 +330,7 @@ namespace ProjectIepAuction.Controllers{
             foreach(var auction in context.Auctions){
                 if(auction.winner != null){
                     User user = auction.winner;
-                    if(user.Id == loggedInUser.Id) model.auctionList.Add(auction);
+                    if(user.Id == loggedInUser.Id && auction.state == "SOLD") model.auctionList.Add(auction);
                 } 
             }
             return View(model);
@@ -326,6 +355,12 @@ namespace ProjectIepAuction.Controllers{
 
             Auction auction = this.context.Auctions.FirstOrDefault(s => s.Id == id);
 
+            int openH = auction.openDate.Hour;
+            int openM = auction.openDate.Minute;
+
+            int closeH = auction.closeDate.Hour;
+            int closeM = auction.closeDate.Minute;
+
             if(auction != null && auction.owner == loggedInUser){
                 EditAuctionModel model = new EditAuctionModel()
                 {
@@ -334,7 +369,11 @@ namespace ProjectIepAuction.Controllers{
                     startPrice = Convert.ToString(auction.startPrice),
                     openDate = auction.openDate,
                     closeDate = auction.closeDate,
-                    auctionId = auction.Id
+                    auctionId = auction.Id,
+                    openHour = openH,
+                    openMinute = openM,
+                    closeHour = closeH,
+                    closeMinute = closeM
                 };
 
                 
@@ -371,29 +410,35 @@ namespace ProjectIepAuction.Controllers{
                 auction.startPrice = Convert.ToInt32(model.startPrice);
                 auction.currentPrice = Convert.ToInt32(model.startPrice);
             }
-
-            if(auction.openDate != model.openDate){
-                if(model.openDate < DateTime.Today){
-                    ModelState.AddModelError ( "", "Open date not valid!" );
-                    return View ( model );
-                }
-                if(auction.closeDate != model.closeDate){
-                    if(model.openDate >= model.closeDate){
-                        ModelState.AddModelError ( "", "Open date and close date not valid!" );
-                        return View ( model );
-                    }
-                }else{
-                    if(model.openDate >= auction.closeDate){
-                        ModelState.AddModelError ( "", "New open date and auction close date not valid!" );
-                        return View ( model );
-                    }
-                }
-                auction.openDate = model.openDate;
+            
+            if(model.openHour > 0){
+                model.openDate = model.openDate.AddHours(Convert.ToDouble(model.openHour));
             }
 
-            if(auction.closeDate != model.closeDate){
-                auction.closeDate = model.closeDate;
+            if(model.openMinute > 0){
+                model.openDate = model.openDate.AddMinutes(Convert.ToDouble(model.openMinute));
             }
+
+            if(model.closeHour > 0){
+                model.closeDate = model.closeDate.AddHours(model.closeHour);
+            }
+
+            if(model.closeMinute > 0){
+                model.closeDate = model.closeDate.AddMinutes(model.closeMinute);
+            }
+
+            if(model.openDate < DateTime.Now){
+                ModelState.AddModelError ( "", "Open date not valid!" );
+            }
+
+            if(model.openDate >= model.closeDate){
+                ModelState.AddModelError ( "", "Open date and close date not valid!" );
+            }
+
+            auction.openDate = model.openDate;
+            auction.closeDate = model.closeDate;
+
+
             if(model.image != null){
             using ( BinaryReader reader = new BinaryReader ( model.image.OpenReadStream ( ) ) ) {
                 auction.image = reader.ReadBytes ( Convert.ToInt32 ( reader.BaseStream.Length ) );
@@ -407,6 +452,174 @@ namespace ProjectIepAuction.Controllers{
             return RedirectToAction(nameof(UserController.EditAuctionList), "User");
         }
         
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Bid (int? auctionId) {
+
+            await Console.Out.WriteLineAsync("USAO SAM");
+
+            User loggedInUser = await this.userManager.GetUserAsync(base.User);
+                       
+            Auction auction = this.context.Auctions.Where(a => a.Id == (int)auctionId).FirstOrDefault();
+
+            if(auction.state != "OPEN"){
+                return  Json(new { flag = false, alert = "Sorry, the auction is not open!" });
+            }
+
+            var owner = this.context.Users.Join(context.Auctions,
+                    user => user,
+                    win => win.owner,
+                    (user, win) => new
+                    {
+                        UserId = user.Id,
+                        auctionId = win.Id
+                    }
+                ).Where(k => k.auctionId == auction.Id).FirstOrDefault();
+
+            var oldWin = this.context.Users.Join(context.Auctions,
+                    user => user,
+                    win => win.winner,
+                    (user, win) => new
+                    {
+                        UserId = user.Id,
+                        auctionId = win.Id
+                    }
+                ).Where(k => k.auctionId == auction.Id).FirstOrDefault();
+
+            User oldWinner = null;
+            if(oldWin != null){
+                oldWinner = this.context.Users.Where(u => u.Id == oldWin.UserId).FirstOrDefault();
+            }
+
+            if(loggedInUser.Id != owner.UserId){ 
+                await Console.Out.WriteLineAsync("NIJE VLASNIK");               
+                if(loggedInUser.tokens > auction.currentPrice){
+                    await Console.Out.WriteLineAsync("IMA TOKENA");
+                    
+                    auction.currentPrice = auction.currentPrice + 1;
+
+                    auction.winner = loggedInUser;
+
+                    TimeSpan timeLeft = auction.closeDate - DateTime.Now;
+                    int time = 0;
+
+                    if(timeLeft.TotalSeconds <= 10){
+                        auction.closeDate = auction.closeDate.AddSeconds(10);
+                        time = 1;
+                    }
+
+                    bool saved = false;
+                    while (!saved){
+                        try{
+                            this.context.Update(auction);  
+                            this.context.SaveChanges();
+                            saved = true;
+                        }
+                        catch (DbUpdateConcurrencyException e)
+                        {
+                            return Json(new { flag = false, alert = "Neko je vec bidovao, pokusajte ponovo" });
+                        }
+                    }
+                    await Console.Out.WriteLineAsync("SACUVAO AUKCIJU");
+
+                    Bid bid = new Bid ( ) {
+                        price = auction.currentPrice,
+                        auctionId = auction.Id,
+                        auction = auction,
+                        bidDate = DateTime.Now,
+                        user = loggedInUser,
+                        userId = loggedInUser.Id
+                    };
+
+                    await this.context.Bids.AddAsync(bid);
+                    await Console.Out.WriteLineAsync("SACUVAO BID");
+
+                    if(oldWinner != null){
+                        oldWinner.tokens = oldWinner.tokens + auction.currentPrice - 1;
+                        this.context.Users.Update(oldWinner);
+                        await Console.Out.WriteLineAsync("SACUVAO OLD");
+                    } 
+
+                    loggedInUser.tokens = loggedInUser.tokens - auction.currentPrice;
+
+
+                    await this.userManager.UpdateAsync(loggedInUser);
+
+                    await this.context.SaveChangesAsync ( );
+
+                    await Console.Out.WriteLineAsync("SACUVAO SVE");
+
+                    if(time == 1){
+                        return  Json(new { flag = true, newWinner = loggedInUser.UserName, closeDate = auction.closeDate.ToString("yyyy,MM,d,H,m,s")  });
+                    }else{
+                        return  Json(new { flag = true, newWinner = loggedInUser.UserName  });
+                    }
+    
+                }else{
+                    
+                    return  Json(new { flag = false, alert = "You dont have enought tokens on your account!" });
+                }
+            }else{
+                return  Json(new { flag = false, alert = "Vi ste vlasnik !" });
+            }
+
+            
+            
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CloseBid(int? auctionId)
+        {
+
+            Auction auction = await this.context.Auctions.Include(a => a.winner).Where(a => a.Id == (int)auctionId).FirstOrDefaultAsync();
+
+            if(auction != null){
+                if(auction.winner != null){
+                    auction.state = "SOLD";
+                }else{
+                    auction.state = "EXPIRED";
+                }
+            }
+
+            try
+            {
+                this.context.Update(auction);
+                await this.context.SaveChangesAsync();
+            }
+            catch(DbUpdateConcurrencyException e){
+                return Json(new { flag = false, alert = "" });
+
+            }
+
+            return Json(new {
+                flag = true
+            });      
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public string FindUser(int? auctionId, int? ii){
+
+            Auction auction = this.context.Auctions.Where(a => a.Id == (int)auctionId).FirstOrDefault();
+
+            User user = this.context.Users.Where(u => u == auction.winner).FirstOrDefault();
+
+            return user.UserName;
+
+        }
+
+        [HttpPost]
+        public async Task<int> Tokens(){
+            User loggedInUser = await this.userManager.GetUserAsync(base.User); 
+
+            return loggedInUser.tokens;
+        }
+
+
+
     }
 }
 

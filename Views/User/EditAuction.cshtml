@@ -31,9 +31,33 @@
                     <input asp-for="openDate" type="date" class="form-control datepicker" />
             </div>
             <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="openHour" class="control-label"></label>
+                        <input asp-for="openHour" class="form-control" max="23" min="0"/>
+                    </div>
+                    <div class="col">
+                        <label asp-for="openMinute" class="control-label"></label>
+                        <input asp-for="openMinute" class="form-control" max="59" min="0"/>
+                    </div>
+                </div> 
+            </div>
+            <div class="form-group">
                 <label asp-for="closeDate" class="control-label"></label>
                 <input asp-for="closeDate" type="date" class="form-control datepicker" />
 
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="closeHour" class="control-label"></label>
+                        <input asp-for="closeHour" class="form-control" max="23" min="0"/>
+                    </div>
+                    <div class="col">
+                        <label asp-for="closeMinute" class="control-label"></label>
+                        <input asp-for="closeMinute" class="form-control" max="59" min="0"/>
+                    </div>
+                </div> 
             </div>
             <div class="form-group">
                 <label asp-for="image" class="control-label"></label>

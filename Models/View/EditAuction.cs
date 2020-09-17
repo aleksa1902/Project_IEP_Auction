@@ -33,5 +33,13 @@ namespace ProjectIepAuction.Models.View
 
         public int auctionId{get; set;}
 
+        public int openHour{get;set;}
+
+        public int closeHour{get;set;}
+
+        public int openMinute{get;set;}
+
+        public int closeMinute{get;set;}
+
     }
 }

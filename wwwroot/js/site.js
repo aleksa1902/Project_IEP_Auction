@@ -3,6 +3,7 @@
 
 // Write your JavaScript code.
 
+
 function buyTokens ( ) {
     var verificationToken = $("input[name='__RequestVerificationToken']").val ( ) //Znaci ovde ga dohvatimo, on se nalazi na svakoj starnici
 
@@ -37,7 +38,6 @@ $( document ).ready(function() {
         onApprove: function ( data, actions ) {
             return actions.order.capture ( ).then (
                 function ( details ) {
-                    alert ( "SUCCESS " + details.payer.name.given_name)
                     buyTokens(); //i ovde kada je PayPal uspeo, prikaze se alert da je sve uspesno, obavi se upisu bazu i refreshuje se stranica :D moz
 
                 }
@@ -132,51 +132,6 @@ function declineAuction(id)
     })
 }
 
-function countDown(){
-    var i;
-    for(i=1; i<=12; i++)
-    {
-        var string = $("#closeTime"+i).val();
-        if(string==null)
-            break;
-        
-           
-        var array = string.split(",");
-    
-        var now = new Date();
-
-        var eventDate = new Date(array[0], array[1], array[2], array[3], array[4], array[5], 0);
-
-        var currentTime = now.getTime();
-        var eventTime = eventDate.getTime();
- 
-        var remTime = eventTime - currentTime; 
- 
-        var s = Math.floor(remTime / 1000);
-        var m = Math.floor(s / 60);
-        var h = Math.floor(m / 60);
-        var d = Math.floor(h / 24);
- 
-        h %= 24;
-        m %= 60;
-        s %= 60;
-        d %= 30;
- 
-        h = h - 1 < 0 ? 0 : h; 
- 
-        h = (h<10) ? "0" + h : h;
-        m = (m<10) ? "0" + m : m;
-        s = (s<10) ? "0" + s : s;
-        d = (d < 10) ? "0" + d : d;
- 
-        $("#time"+i).text( d + ":" + h + ":" + m + ":" + s );
- 
-    }
- 
-    
-}
-setInterval(countDown,1000);
-
 function nextPage(nextPage){
     var search = $("#search").val();
     var minPrice = $("#minPrice").val();
@@ -226,4 +181,26 @@ function clickHandler(delay){
     if(search != "" && minPrice != "" && maxPrice != "" && state != "OPEN"){
     setTimeout( function() { nextPage('1'); }, delay );
     }
+}
+
+function nadjiUsera(id, i){
+    var verificationToken = $("input[name='__RequestVerificationToken']").val ( )
+
+    return $.ajax ({  
+        type: "POST", 
+        url: "/User/FindUser", 
+        data: { 
+            "auctionId": id,
+            "i": i,
+            "__RequestVerificationToken" : verificationToken 
+        },
+        dataType: "text",
+        success: function ( response ) {
+            alert(response);
+            document.getElementById("winner"+i).innerHTML = response;       
+        },
+        error: function ( response ) {
+            alert ( "Sorry, you dont have tokens." ) 
+        }
+    });
 }

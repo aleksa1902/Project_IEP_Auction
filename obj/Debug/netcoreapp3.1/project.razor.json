@@ -14402,6 +14402,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\Home\\Chat.cshtml",
+      "TargetPath": "Views\\Home\\Chat.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "d:\\GitHub\\Project_IEP_Auction\\Views\\User\\Profile.cshtml",
       "TargetPath": "Views\\User\\Profile.cshtml",
       "FileKind": "mvc"

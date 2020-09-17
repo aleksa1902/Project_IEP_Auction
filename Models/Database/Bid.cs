@@ -5,7 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ProjectIepAuction.Models.Database{
     public class Bid {
- 
+        
+        [Key]
+        public int Id{get; set;}
         
         public int price {get; set;} 
  
@@ -25,11 +27,15 @@ namespace ProjectIepAuction.Models.Database{
         {
         public void Configure(EntityTypeBuilder<Bid> builder)
         {
-            builder.HasKey(
-                entity => new {entity.userId, entity.auctionId} 
-            );
+            builder.Property(bid => bid.Id).ValueGeneratedOnAdd();
 
-            
+            builder.HasOne<Auction>(item =>item.auction)
+            .WithMany(item =>item.BidList)
+            .HasForeignKey(item =>new {item.auctionId} );
+
+            builder.HasOne<User>(item =>item.user)
+            .WithMany(item =>item.BidList)
+            .HasForeignKey(item =>new {item.userId} );
 
         }
     }

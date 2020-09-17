@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProjectIepAuction.Factories;
 using Quartz;
+using ProjectIepAuction.Hubs;
 
 
 namespace ProjectIepAuction
@@ -107,7 +108,8 @@ namespace ProjectIepAuction
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                
+                endpoints.MapHub<BidHub>("/bidhub");
+                endpoints.MapHub<ChatHub>("/chathub");
             });
         }
     }
