@@ -92,8 +92,7 @@ function timer(){
         var string = $("#closeTime"+i).val();
         if(string==null)
             break;
-        
-           
+         
         var array = string.split(",");
     
         var now = new Date();
@@ -116,10 +115,7 @@ function timer(){
         var h = Math.floor(m / 60);
         var d = Math.floor(h / 24);
  
-        h %= 24;
-        m %= 60;
-        s %= 60;
-        d %= 30;
+        h %= 24; m %= 60; s %= 60; d %= 30;
  
         h = h - 1 < 0 ? 0 : h; 
  
