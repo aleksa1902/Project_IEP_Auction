@@ -532,6 +532,7 @@ namespace ProjectIepAuction.Controllers{
                         }
                         catch (DbUpdateConcurrencyException e)
                         {
+                            await Console.Out.WriteLineAsync(e.ToString());
                             return Json(new { flag = false, alert = "Someone has already made an offer, please try again !" });
                         }
                     }
@@ -605,6 +606,7 @@ namespace ProjectIepAuction.Controllers{
                 this.context.SaveChanges( );
             }
             catch(DbUpdateConcurrencyException e){
+                await Console.Out.WriteLineAsync(e.ToString());
                 return Json(new { flag = false });
 
             }

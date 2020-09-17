@@ -1,7 +1,31 @@
 ﻿@using Microsoft.AspNetCore.Identity;
 @using ProjectIepAuction.Models.Database;
+@using System.Security.Claims;
 
 @inject SignInManager<User> signInManager;
+
+@{
+    string fullName = "";
+    string role = "";
+    foreach (Claim claim in User.Claims)
+    {
+        if(claim.Type.Equals("fullName"))
+        {
+            fullName = claim.Value;
+            
+        }
+        else if(claim.Type.Equals(ClaimTypes.Role))
+        {
+             role = claim.Value;
+         
+        }
+
+        if(role!="" && fullName!="")
+            break;
+    
+    }
+    string klasa;
+}
     
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +47,11 @@
 
 <body>
     <header>
-        <nav class="navbar fixed-top navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #8797ff;">
+        @{var boja = "NULL";}
+        @if(role == "Administrator") boja = "#DC143C"; 
+        else if(role == "User") boja = "#8797ff";
+        else boja = "#BDB76B";
+        <nav class="navbar fixed-top navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: @boja">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/Content/Images/OnlineAuctionBalkan.png" alt="Logo" width="180" height="85"/></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -52,7 +80,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted" style="background-color: #8797ff;">
+    <footer class="border-top footer text-muted" style="background-color: @boja">
         <div class="container" style="text-align:right; color:black;">
             &copy; 2020 - ProjectIepAuction - Aleksa Bogdanovic
         </div>
